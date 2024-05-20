@@ -37,6 +37,7 @@ import { ErmisChatWidget } from "ermis-chat-widget";
 
 ```javascript
 <ErmisChatWidget
+  apiKey="YOUR_API_KEY"
   openWidget={openWidget}
   onToggleWidget={onToggleWidget}
   token="YOUR_TOKEN"
@@ -62,6 +63,7 @@ const App = () => {
   return (
     <div>
       <ErmisChatWidget
+        apiKey="YOUR_API_KEY"
         openWidget={open}
         onToggleWidget={onToggleWidget}
         token="YOUR_TOKEN"
