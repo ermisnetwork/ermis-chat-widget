@@ -1,0 +1,10 @@
+import React from "react";
+export declare const getChannelName: (channel: any, userId: string) => any;
+export declare const capitalizeFirstLetter: (string: string) => string;
+export declare const getColorName: (name: string) => string;
+export declare const getFontSizeAvatar: (size: number) => string;
+export declare const formatString: (str: string) => string;
+export declare const getTimeFromDate: (date: any) => string;
+export declare const uuidv4: () => string;
+export declare const getSizeInMb: (size: number) => string;
+export declare const getIconFile: (type: string, width: number, height: number, color: string) => React.JSX.Element;

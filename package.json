@@ -1,0 +1,52 @@
+{
+  "name": "ermis-chat-widget",
+  "version": "1.0.0",
+  "description": "Ermis chat widget is a react component that allows you to integrate Ermis chatbot into your website",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ermisdev/ermis-chat-widget"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c"
+  },
+  "keywords": [
+    "chatbot"
+  ],
+  "author": "ermis-developer",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/react": "^18.3.1",
+    "postcss": "^8.4.38",
+    "react": "link:../node_modules/react",
+    "react-dom": "^18.3.1",
+    "rollup": "^4.17.2",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.5"
+  },
+  "peerDependencies": {
+    "react": "link:../node_modules/react",
+    "react-dom": "^18.3.1"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "@emoji-mart/data": "^1.2.1",
+    "@emoji-mart/react": "^1.1.1",
+    "@rollup/plugin-json": "^6.1.0",
+    "emoji-mart": "^5.6.0",
+    "ermis-js-sdk": "^1.0.0",
+    "react-infinite-scroll-component": "^6.1.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4"
+  }
+}
