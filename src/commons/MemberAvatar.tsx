@@ -19,8 +19,11 @@ const MemberAvatar = ({ member, width, height }: IProps) => {
     if (member) {
       setMemberName(member.id);
       setMemberAvatar(member.img ? member.img : "");
+    } else {
+      setMemberName('')
+      setMemberAvatar('')
     }
-  }, [ member]);
+  }, [member]);
 
   return (
     <div

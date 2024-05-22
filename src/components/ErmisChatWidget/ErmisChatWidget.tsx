@@ -19,7 +19,7 @@ interface ChatWidgetIProps {
   primaryColor?: string;
 }
 
-const BASE_URL = "http://210.79.176.52:8558";
+const BASE_URL = "https://api-staging.ermis.network";
 
 const paramsQueryChannels: any = {
   filter: { type: ChatType.Messaging },
@@ -88,17 +88,17 @@ const ErmisChatWidget = ({
   const getFriendIds = (channels: any[]) => {
     const friendIds = channels.map((channel: any) => {
       const dataUser: any = Object.values(channel.data.members).find(
-        (member: any) => member.user.id !== lowCaseSenderId
+        (member: any) => member.user_id !== lowCaseSenderId
       );
-      return dataUser ? dataUser.user.id : "";
+      return dataUser ? dataUser.user_id : "";
     });
 
-    return friendIds || [];
+    return friendIds.filter((item: string) => item) || [];
   };
 
   const findChannelOfReceiverId = async (channels: any[]) => {
     const channel = channels.find((channel: any) => {
-      return channel.data.members.find(
+      return Object.values(channel.data.members).find(
         (member: any) => member.user.id === lowCaseReceiverId
       );
     });
@@ -116,11 +116,12 @@ const ErmisChatWidget = ({
           setChannelCurrent(channelSelected);
         }
       } catch (err: any) {
+        setChannelCurrent(null)
         setError(err.message || ERROR_MESSAGE);
       }
+    } else {
+      setChannelCurrent(null)
     }
-
-    return null;
   };
 
   const createChannel = async () => {
@@ -145,7 +146,7 @@ const ErmisChatWidget = ({
           paramsQueryChannels.sort,
           paramsQueryChannels.options
         )
-        .then(async (response: any) => {
+        .then(async (response: any[]) => {
           const friendIds = getFriendIds(response);
           if (!lowCaseReceiverId) {
             setChannels(response);
@@ -157,9 +158,10 @@ const ErmisChatWidget = ({
             // create new channel with receiverId
             const newChannel = await createChannel();
             if (newChannel) {
-              const newListChannel = response.push(newChannel);
-              setChannels(newListChannel);
-              findChannelOfReceiverId(newListChannel);
+              let arrChannel = [...response]
+              arrChannel.push(newChannel);
+              setChannels(arrChannel);
+              findChannelOfReceiverId(arrChannel);
             } else {
               setChannels(response);
             }
@@ -168,6 +170,9 @@ const ErmisChatWidget = ({
         .catch((err: any) => {
           setError(err.message || ERROR_MESSAGE);
         });
+    } else {
+      setChannelCurrent(null)
+      setChannels([])
     }
   }, [lowCaseReceiverId, isLoggedIn, openWidget]);
 

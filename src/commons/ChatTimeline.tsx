@@ -82,9 +82,8 @@ const ChatTimeline = ({
             const name = formatString(item.user.id);
             return (
               <div
-                className={`listMessages-item ${
-                  isMyMessage ? "myMessage" : "otherMessage"
-                }`}
+                className={`listMessages-item ${isMyMessage ? "myMessage" : "otherMessage"
+                  }`}
                 key={item.id}
               >
                 <div className="messageItem">

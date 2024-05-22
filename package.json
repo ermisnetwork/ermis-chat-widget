@@ -10,7 +10,7 @@
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ermisdev/ermis-chat-widget"
+    "url": "https://github.com/ermisnetwork/ermis-chat-widget"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -27,7 +27,7 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/react": "^18.3.1",
     "postcss": "^8.4.38",
-    "react": "link:../node_modules/react",
+    "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rollup": "^4.17.2",
     "rollup-plugin-dts": "^6.1.0",
@@ -36,7 +36,7 @@
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
-    "react": "link:../node_modules/react",
+    "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "dependencies": {
@@ -45,7 +45,7 @@
     "@emoji-mart/react": "^1.1.1",
     "@rollup/plugin-json": "^6.1.0",
     "emoji-mart": "^5.6.0",
-    "ermis-js-sdk": "^1.0.0",
+    "ermis-js-sdk": "^1.0.2",
     "react-infinite-scroll-component": "^6.1.0",
     "rollup-plugin-peer-deps-external": "^2.2.4"
   }

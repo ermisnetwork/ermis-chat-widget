@@ -66,7 +66,9 @@ const ChatInput = ({
 
   const handleInputChange = (event: any) => {
     setText(event.target.value);
-    chatInputRef.current.style.height = `${chatInputRef.current.scrollHeight}px`;
+    if (chatInputRef.current) {
+      chatInputRef.current.style.height = `${chatInputRef.current.scrollHeight}px`;
+    }
   };
 
   const handleKeyPress = (event: any) => {
@@ -357,9 +359,8 @@ const ChatInput = ({
         </div>
       </div>
       <div
-        className={`chatbox-input-send ${
-          checkDisabledButton() ? "disabled" : ""
-        }`}
+        className={`chatbox-input-send ${checkDisabledButton() ? "disabled" : ""
+          }`}
       >
         <span
           id="send-btn"

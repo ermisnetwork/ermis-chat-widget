@@ -27,6 +27,9 @@ const ChannelAvatar = ({ senderId, channel, width, height }: IProps) => {
         setMemberName(otherMember.user.id);
         setMemberAvatar(otherMember.user.img ? otherMember.user.img : "");
       }
+    } else {
+      setMemberName('')
+      setMemberAvatar('')
     }
   }, [senderId, channel]);
 

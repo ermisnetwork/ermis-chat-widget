@@ -43,9 +43,8 @@ const ChannelList = ({
         return (
           <div className="chatbox-list-col" key={channel.id}>
             <div
-              className={`chatbox-item ${
-                channel.id === channelCurrent?.id ? "active" : ""
-              }`}
+              className={`chatbox-item ${channel.id === channelCurrent?.id ? "active" : ""
+                }`}
               onClick={() => onSelectChannel(channel)}
             >
               <div className="chatbox-item-avatar">
