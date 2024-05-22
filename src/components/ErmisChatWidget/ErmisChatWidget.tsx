@@ -20,7 +20,6 @@ interface ChatWidgetIProps {
 }
 
 const BASE_URL = "https://api-staging.ermis.network";
-const WEBSOCKET_BASE_URL = "wss://api-staging.ermis.network"
 
 const paramsQueryChannels: any = {
   filter: { type: ChatType.Messaging },
@@ -180,6 +179,28 @@ const ErmisChatWidget = ({
   useEffect(() => {
     getData();
   }, [getData]);
+
+  const fetchChannels = async () => {
+    await chatClient
+      .queryChannels(
+        paramsQueryChannels.filter,
+        paramsQueryChannels.sort,
+        paramsQueryChannels.options
+      ).then((response: any[]) => {
+        setChannels(response);
+      })
+      .catch((err: any) => {
+        setError(err.message || ERROR_MESSAGE);
+      });
+  }
+
+  useEffect(() => {
+    if (isLoggedIn && openWidget) {
+      chatClient.on('notification.added_to_channel', async event => {
+        fetchChannels();
+      });
+    }
+  }, [isLoggedIn, openWidget]);
 
   return (
     <div

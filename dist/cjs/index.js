@@ -60487,6 +60487,22 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
     React.useEffect(() => {
         getData();
     }, [getData]);
+    const fetchChannels = () => __awaiter(void 0, void 0, void 0, function* () {
+        yield chatClient
+            .queryChannels(paramsQueryChannels.filter, paramsQueryChannels.sort, paramsQueryChannels.options).then((response) => {
+            setChannels(response);
+        })
+            .catch((err) => {
+            setError(err.message || ERROR_MESSAGE);
+        });
+    });
+    React.useEffect(() => {
+        if (isLoggedIn && openWidget) {
+            chatClient.on('notification.added_to_channel', (event) => __awaiter(void 0, void 0, void 0, function* () {
+                fetchChannels();
+            }));
+        }
+    }, [isLoggedIn, openWidget]);
     return (React.createElement("div", { className: `chatbox-container ${openWidget ? "show-chatbox" : ""}`, style: {
             background: primaryColor,
             backgroundColor: primaryColor,
