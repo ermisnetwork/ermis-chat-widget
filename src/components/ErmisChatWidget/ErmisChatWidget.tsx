@@ -180,27 +180,13 @@ const ErmisChatWidget = ({
     getData();
   }, [getData]);
 
-  const fetchChannels = async () => {
-    await chatClient
-      .queryChannels(
-        paramsQueryChannels.filter,
-        paramsQueryChannels.sort,
-        paramsQueryChannels.options
-      ).then((response: any[]) => {
-        setChannels(response);
-      })
-      .catch((err: any) => {
-        setError(err.message || ERROR_MESSAGE);
-      });
-  }
-
   useEffect(() => {
-    if (isLoggedIn && openWidget) {
-      chatClient.on('notification.added_to_channel', async event => {
-        fetchChannels();
-      });
-    }
-  }, [isLoggedIn, openWidget]);
+    chatClient.on('notification.added_to_channel', async event => {
+      getData();
+    });
+  }, []);
+
+  console.log('-------alo------')
 
   return (
     <div

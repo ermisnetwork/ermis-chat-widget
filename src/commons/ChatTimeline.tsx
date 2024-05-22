@@ -26,19 +26,20 @@ const ChatTimeline = ({
 
   useEffect(() => {
     if (channelCurrent) {
-      // if (chatboxRef.current) {
-      //   chatboxRef.current.scrollTop = 0;
-      // }
+      if (chatboxRef.current) {
+        chatboxRef.current.scrollTop = 0;
+      }
       const messages = channelCurrent.state.messages;
       setMessages(messages);
 
       channelCurrent?.on("message.new", (event: any) => {
         setMessages(channelCurrent.state.messages);
-        // chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
-        // chatboxRef.current.scrollTop = 0;
+        if (chatboxRef.current && chatboxRef.current.scrollHeight) {
+          chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
+        }
       });
     }
-  }, [channelCurrent]);
+  }, [channelCurrent, chatboxRef]);
 
   const fetchMoreMessages = async () => {
     try {

@@ -17214,18 +17214,19 @@ const ChatTimeline = ({ senderId, channelCurrent, primaryColor, setError, }) => 
     const [loadingMore, setLoadingMore] = React.useState(false);
     React.useEffect(() => {
         if (channelCurrent) {
-            // if (chatboxRef.current) {
-            //   chatboxRef.current.scrollTop = 0;
-            // }
+            if (chatboxRef.current) {
+                chatboxRef.current.scrollTop = 0;
+            }
             const messages = channelCurrent.state.messages;
             setMessages(messages);
             channelCurrent === null || channelCurrent === void 0 ? void 0 : channelCurrent.on("message.new", (event) => {
                 setMessages(channelCurrent.state.messages);
-                // chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
-                // chatboxRef.current.scrollTop = 0;
+                if (chatboxRef.current && chatboxRef.current.scrollHeight) {
+                    chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
+                }
             });
         }
-    }, [channelCurrent]);
+    }, [channelCurrent, chatboxRef]);
     const fetchMoreMessages = () => __awaiter(void 0, void 0, void 0, function* () {
         var _a;
         try {
@@ -60125,10 +60126,8 @@ const ChatInput = ({ primaryColor, senderId, channelCurrent, setError, }) => {
         }
     };
     const handleKeyPress = (event) => {
-        if (text &&
-            event.key === "Enter" &&
-            !event.shiftKey &&
-            window.innerWidth > 800) {
+        if (text.trim() &&
+            event.key === "Enter") {
             event.preventDefault();
             onSendMessage();
         }
@@ -60487,22 +60486,12 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
     React.useEffect(() => {
         getData();
     }, [getData]);
-    const fetchChannels = () => __awaiter(void 0, void 0, void 0, function* () {
-        yield chatClient
-            .queryChannels(paramsQueryChannels.filter, paramsQueryChannels.sort, paramsQueryChannels.options).then((response) => {
-            setChannels(response);
-        })
-            .catch((err) => {
-            setError(err.message || ERROR_MESSAGE);
-        });
-    });
     React.useEffect(() => {
-        if (isLoggedIn && openWidget) {
-            chatClient.on('notification.added_to_channel', (event) => __awaiter(void 0, void 0, void 0, function* () {
-                fetchChannels();
-            }));
-        }
-    }, [isLoggedIn, openWidget]);
+        chatClient.on('notification.added_to_channel', (event) => __awaiter(void 0, void 0, void 0, function* () {
+            getData();
+        }));
+    }, []);
+    console.log('-------alo------');
     return (React.createElement("div", { className: `chatbox-container ${openWidget ? "show-chatbox" : ""}`, style: {
             background: primaryColor,
             backgroundColor: primaryColor,

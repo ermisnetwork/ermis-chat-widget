@@ -73,10 +73,8 @@ const ChatInput = ({
 
   const handleKeyPress = (event: any) => {
     if (
-      text &&
-      event.key === "Enter" &&
-      !event.shiftKey &&
-      window.innerWidth > 800
+      text.trim() &&
+      event.key === "Enter"
     ) {
       event.preventDefault();
       onSendMessage();
