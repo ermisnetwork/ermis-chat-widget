@@ -186,8 +186,6 @@ const ErmisChatWidget = ({
     });
   }, []);
 
-  console.log('-------alo------')
-
   return (
     <div
       className={`chatbox-container ${openWidget ? "show-chatbox" : ""}`}

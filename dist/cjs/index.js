@@ -60491,7 +60491,6 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
             getData();
         }));
     }, []);
-    console.log('-------alo------');
     return (React.createElement("div", { className: `chatbox-container ${openWidget ? "show-chatbox" : ""}`, style: {
             background: primaryColor,
             backgroundColor: primaryColor,
