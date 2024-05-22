@@ -1,6 +1,6 @@
 {
   "name": "ermis-chat-widget",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Ermis chat widget is a react component that allows you to integrate Ermis chatbot into your website",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
