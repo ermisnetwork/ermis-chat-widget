@@ -60350,7 +60350,6 @@ var css_248z = "@import url(\"https://fonts.googleapis.com/css2?family=Poppins:i
 styleInject(css_248z);
 
 const BASE_URL = "https://api-staging.ermis.network";
-const WEBSOCKET_BASE_URL = "wss://api-staging.ermis.network";
 const paramsQueryChannels = {
     filter: { type: ChatType.Messaging },
     sort: [{ last_message_at: -1 }],
@@ -60397,13 +60396,6 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
             setIsLoggedIn(false);
         }
     }, [lowCaseSenderId, token]);
-    useEffect(() => {
-        const socket = new WebSocket(WEBSOCKET_BASE_URL);
-        socket.onerror = (error) => {
-            setError(error.message || ERROR_MESSAGE);
-        };
-        return () => socket.close();
-    }, []);
     const toggleChatbox = () => {
         onToggleWidget();
     };

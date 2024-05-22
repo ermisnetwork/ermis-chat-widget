@@ -82,15 +82,6 @@ const ErmisChatWidget = ({
     }
   }, [lowCaseSenderId, token]);
 
-  useEffect(() => {
-    const socket = new WebSocket(WEBSOCKET_BASE_URL);
-    socket.onerror = (error: any) => {
-      setError(error.message || ERROR_MESSAGE);
-    };
-
-    return () => socket.close();
-  }, [])
-
   const toggleChatbox = () => {
     onToggleWidget();
   };
