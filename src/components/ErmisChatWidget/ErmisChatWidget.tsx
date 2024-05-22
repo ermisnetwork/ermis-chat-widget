@@ -20,6 +20,7 @@ interface ChatWidgetIProps {
 }
 
 const BASE_URL = "https://api-staging.ermis.network";
+const WEBSOCKET_BASE_URL = "wss://api-staging.ermis.network"
 
 const paramsQueryChannels: any = {
   filter: { type: ChatType.Messaging },
@@ -80,6 +81,15 @@ const ErmisChatWidget = ({
       setIsLoggedIn(false);
     }
   }, [lowCaseSenderId, token]);
+
+  useEffect(() => {
+    const socket = new WebSocket(WEBSOCKET_BASE_URL);
+    socket.onerror = (error: any) => {
+      setError(error.message || ERROR_MESSAGE);
+    };
+
+    return () => socket.close();
+  }, [])
 
   const toggleChatbox = () => {
     onToggleWidget();
