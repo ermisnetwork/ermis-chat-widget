@@ -15,3 +15,4 @@ export declare enum ChatType {
     Team = "team"
 }
 export declare const ERROR_MESSAGE = "Something went wrong";
+export declare const paramsQueryChannels: any;

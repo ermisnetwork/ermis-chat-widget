@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { ErmisChat } from "ermis-js-sdk";
 import { getChannelName } from "../../utils";
 import ChannelAvatar from "../../commons/ChannelAvatar";
-import { ChatIcon, ChatType, ERROR_MESSAGE, NoChat } from "../../constants";
+import { ChatIcon, ChatType, ERROR_MESSAGE, NoChat, paramsQueryChannels } from "../../constants";
 import ChannelList from "../../commons/ChannelList";
 import ChatTimeline from "../../commons/ChatTimeline";
 import ChatInput from "../../commons/ChatInput";
@@ -20,18 +20,6 @@ interface ChatWidgetIProps {
 }
 
 const BASE_URL = "https://api-staging.ermis.network";
-
-const paramsQueryChannels: any = {
-  filter: { type: ChatType.Messaging },
-  sort: [{ last_message_at: -1 }],
-  options: {
-    limit: 10,
-    offset: 0,
-    message_limit: 25,
-    presence: true,
-    watch: true,
-  },
-};
 
 const ErmisChatWidget = ({
   apiKey = '',
@@ -85,57 +73,54 @@ const ErmisChatWidget = ({
     onToggleWidget();
   };
 
-  const getFriendIds = (channels: any[]) => {
-    const friendIds = channels.map((channel: any) => {
-      const dataUser: any = Object.values(channel.data.members).find(
-        (member: any) => member.user_id !== lowCaseSenderId
-      );
-      return dataUser ? dataUser.user_id : "";
-    });
-
-    return friendIds.filter((item: string) => item) || [];
-  };
-
-  const findChannelOfReceiverId = async (channels: any[]) => {
-    const channel = channels.find((channel: any) => {
-      return Object.values(channel.data.members).find(
-        (member: any) => member.user.id === lowCaseReceiverId
-      );
-    });
-
-    if (channel) {
-      try {
-        const chanelId = channel.data.id;
-        const channelType = channel.data.type;
-        const channelSelected = chatClient.channel(channelType, chanelId);
-        const response = await channel.query({
-          messages: { limit: 50 },
-        });
-
-        if (response) {
-          setChannelCurrent(channelSelected);
-        }
-      } catch (err: any) {
-        setChannelCurrent(null)
+  const fetchChannels = async () => {
+    await chatClient
+      .queryChannels(
+        paramsQueryChannels.filter,
+        paramsQueryChannels.sort,
+        paramsQueryChannels.options
+      )
+      .then(async (response: any[]) => {
+        setChannels(response);
+      })
+      .catch((err: any) => {
+        setChannels([])
         setError(err.message || ERROR_MESSAGE);
-      }
-    } else {
-      setChannelCurrent(null)
-    }
+      });
   };
 
-  const createChannel = async () => {
-    try {
-      const newChannel = await chatClient.channel(ChatType.Messaging, {
-        members: [lowCaseReceiverId, lowCaseSenderId],
-      });
-      await newChannel.create();
-      return newChannel;
-    } catch (err: any) {
-      setError(err.message || ERROR_MESSAGE);
-      return null;
+  const createChannelOfReceiver = async () => {
+    if (lowCaseReceiverId) {
+      try {
+        const newChannel = chatClient.channel(ChatType.Messaging, {
+          members: [lowCaseReceiverId, lowCaseSenderId],
+        });
+        await newChannel.create();
+        setChannelCurrent(newChannel);
+      } catch (err: any) {
+        setError(err.message || ERROR_MESSAGE);
+        return null;
+      }
     }
-  };
+  }
+
+  const connectChannelOfReceiver = async (channel: any) => {
+    try {
+      const chanelId = channel.data.id;
+      const channelType = channel.data.type;
+      const channelSelected = chatClient.channel(channelType, chanelId);
+      const response = await channel.query({
+        messages: { limit: 50 },
+      });
+
+      if (response) {
+        setChannelCurrent(channelSelected);
+      }
+    } catch (err: any) {
+      setChannelCurrent(null)
+      setError(err.message || ERROR_MESSAGE);
+    }
+  }
 
   const getData = useCallback(async () => {
     if (isLoggedIn && openWidget) {
@@ -146,24 +131,16 @@ const ErmisChatWidget = ({
           paramsQueryChannels.sort,
           paramsQueryChannels.options
         )
-        .then(async (response: any[]) => {
-          const friendIds = getFriendIds(response);
-          if (!lowCaseReceiverId) {
-            setChannels(response);
-          } else if (friendIds.includes(lowCaseReceiverId)) {
-            // check receiverId existing in list channel
-            setChannels(response);
-            findChannelOfReceiverId(response);
-          } else {
-            // create new channel with receiverId
-            const newChannel = await createChannel();
-            if (newChannel) {
-              let arrChannel = [...response]
-              arrChannel.push(newChannel);
-              setChannels(arrChannel);
-              findChannelOfReceiverId(arrChannel);
+        .then(async (response: any) => {
+          setChannels(response);
+          if (lowCaseReceiverId) {
+            const channelOfReceiver = response.find((channel: any) => Object.values(channel.data.members).some((member: any) => member.user_id === lowCaseReceiverId));
+            if (channelOfReceiver) {
+              console.log('----------connect existing channel----------')
+              connectChannelOfReceiver(channelOfReceiver);
             } else {
-              setChannels(response);
+              console.log('----------create new channel----------')
+              createChannelOfReceiver();
             }
           }
         })
@@ -182,7 +159,7 @@ const ErmisChatWidget = ({
 
   useEffect(() => {
     chatClient.on('notification.added_to_channel', async event => {
-      getData();
+      fetchChannels();
     });
   }, []);
 

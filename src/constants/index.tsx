@@ -496,3 +496,15 @@ export enum ChatType {
 }
 
 export const ERROR_MESSAGE = "Something went wrong";
+
+export const paramsQueryChannels: any = {
+  filter: { type: ChatType.Messaging },
+  sort: [{ last_message_at: -1 }],
+  options: {
+    limit: 10,
+    offset: 0,
+    message_limit: 25,
+    presence: true,
+    watch: true,
+  },
+};

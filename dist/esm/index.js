@@ -16434,6 +16434,17 @@ var ChatType;
     ChatType["Team"] = "team";
 })(ChatType || (ChatType = {}));
 const ERROR_MESSAGE = "Something went wrong";
+const paramsQueryChannels = {
+    filter: { type: ChatType.Messaging },
+    sort: [{ last_message_at: -1 }],
+    options: {
+        limit: 10,
+        offset: 0,
+        message_limit: 25,
+        presence: true,
+        watch: true,
+    },
+};
 
 const getChannelName = (channel, userId) => {
     if (!channel)
@@ -60349,17 +60360,6 @@ var css_248z = "@import url(\"https://fonts.googleapis.com/css2?family=Poppins:i
 styleInject(css_248z);
 
 const BASE_URL = "https://api-staging.ermis.network";
-const paramsQueryChannels = {
-    filter: { type: ChatType.Messaging },
-    sort: [{ last_message_at: -1 }],
-    options: {
-        limit: 10,
-        offset: 0,
-        message_limit: 25,
-        presence: true,
-        watch: true,
-    },
-};
 const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, token, senderId, receiverId = "", primaryColor = "#eb4034", }) => {
     const chatClient = ErmisChat.getInstance(apiKey, {
         enableInsights: true,
@@ -60398,49 +60398,47 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
     const toggleChatbox = () => {
         onToggleWidget();
     };
-    const getFriendIds = (channels) => {
-        const friendIds = channels.map((channel) => {
-            const dataUser = Object.values(channel.data.members).find((member) => member.user_id !== lowCaseSenderId);
-            return dataUser ? dataUser.user_id : "";
+    const fetchChannels = () => __awaiter(void 0, void 0, void 0, function* () {
+        yield chatClient
+            .queryChannels(paramsQueryChannels.filter, paramsQueryChannels.sort, paramsQueryChannels.options)
+            .then((response) => __awaiter(void 0, void 0, void 0, function* () {
+            setChannels(response);
+        }))
+            .catch((err) => {
+            setChannels([]);
+            setError(err.message || ERROR_MESSAGE);
         });
-        return friendIds.filter((item) => item) || [];
-    };
-    const findChannelOfReceiverId = (channels) => __awaiter(void 0, void 0, void 0, function* () {
-        const channel = channels.find((channel) => {
-            return Object.values(channel.data.members).find((member) => member.user.id === lowCaseReceiverId);
-        });
-        if (channel) {
+    });
+    const createChannelOfReceiver = () => __awaiter(void 0, void 0, void 0, function* () {
+        if (lowCaseReceiverId) {
             try {
-                const chanelId = channel.data.id;
-                const channelType = channel.data.type;
-                const channelSelected = chatClient.channel(channelType, chanelId);
-                const response = yield channel.query({
-                    messages: { limit: 50 },
+                const newChannel = chatClient.channel(ChatType.Messaging, {
+                    members: [lowCaseReceiverId, lowCaseSenderId],
                 });
-                if (response) {
-                    setChannelCurrent(channelSelected);
-                }
+                yield newChannel.create();
+                setChannelCurrent(newChannel);
             }
             catch (err) {
-                setChannelCurrent(null);
                 setError(err.message || ERROR_MESSAGE);
+                return null;
             }
         }
-        else {
-            setChannelCurrent(null);
-        }
     });
-    const createChannel = () => __awaiter(void 0, void 0, void 0, function* () {
+    const connectChannelOfReceiver = (channel) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const newChannel = yield chatClient.channel(ChatType.Messaging, {
-                members: [lowCaseReceiverId, lowCaseSenderId],
+            const chanelId = channel.data.id;
+            const channelType = channel.data.type;
+            const channelSelected = chatClient.channel(channelType, chanelId);
+            const response = yield channel.query({
+                messages: { limit: 50 },
             });
-            yield newChannel.create();
-            return newChannel;
+            if (response) {
+                setChannelCurrent(channelSelected);
+            }
         }
         catch (err) {
+            setChannelCurrent(null);
             setError(err.message || ERROR_MESSAGE);
-            return null;
         }
     });
     const getData = useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
@@ -60449,26 +60447,16 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
             yield chatClient
                 .queryChannels(paramsQueryChannels.filter, paramsQueryChannels.sort, paramsQueryChannels.options)
                 .then((response) => __awaiter(void 0, void 0, void 0, function* () {
-                const friendIds = getFriendIds(response);
-                if (!lowCaseReceiverId) {
-                    setChannels(response);
-                }
-                else if (friendIds.includes(lowCaseReceiverId)) {
-                    // check receiverId existing in list channel
-                    setChannels(response);
-                    findChannelOfReceiverId(response);
-                }
-                else {
-                    // create new channel with receiverId
-                    const newChannel = yield createChannel();
-                    if (newChannel) {
-                        let arrChannel = [...response];
-                        arrChannel.push(newChannel);
-                        setChannels(arrChannel);
-                        findChannelOfReceiverId(arrChannel);
+                setChannels(response);
+                if (lowCaseReceiverId) {
+                    const channelOfReceiver = response.find((channel) => Object.values(channel.data.members).some((member) => member.user_id === lowCaseReceiverId));
+                    if (channelOfReceiver) {
+                        console.log('----------connect existing channel----------');
+                        connectChannelOfReceiver(channelOfReceiver);
                     }
                     else {
-                        setChannels(response);
+                        console.log('----------create new channel----------');
+                        createChannelOfReceiver();
                     }
                 }
             }))
@@ -60486,7 +60474,7 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
     }, [getData]);
     useEffect(() => {
         chatClient.on('notification.added_to_channel', (event) => __awaiter(void 0, void 0, void 0, function* () {
-            getData();
+            fetchChannels();
         }));
     }, []);
     return (React.createElement("div", { className: `chatbox-container ${openWidget ? "show-chatbox" : ""}`, style: {
