@@ -16452,7 +16452,7 @@ const getChannelName = (channel, userId) => {
     const myUserId = userId;
     if (channel.data.type === "messaging") {
         const otherMember = Object.values(channel.state.members).find((member) => member.user.id !== myUserId);
-        return formatString(otherMember.user.id);
+        return otherMember ? formatString(otherMember.user.id) : '';
     }
     return channel.data.name;
 };

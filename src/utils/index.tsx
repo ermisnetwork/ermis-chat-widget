@@ -15,7 +15,7 @@ export const getChannelName = (channel: any, userId: string) => {
     const otherMember: any = Object.values(channel.state.members).find(
       (member: any) => member.user.id !== myUserId
     );
-    return formatString(otherMember.user.id);
+    return otherMember ? formatString(otherMember.user.id) : '';
   }
   return channel.data.name;
 };
