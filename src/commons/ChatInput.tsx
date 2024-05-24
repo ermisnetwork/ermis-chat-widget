@@ -10,6 +10,7 @@ import {
   IconFileAudio,
   IconFileVideo,
   IconLink,
+  IconSend,
 } from "../constants";
 import LoadingSpinner from "./LoadingSpinner";
 
@@ -203,8 +204,8 @@ const ChatInput = ({
             src={data.url}
             alt={data.name}
             style={{
-              width: "60px",
-              height: "60px",
+              width: "50px",
+              height: "50px",
               objectFit: "cover",
             }}
           />
@@ -213,7 +214,7 @@ const ChatInput = ({
         return (
           <div className="attachment-cont" title={data.name}>
             <div className="attachment-icon">
-              <IconFileVideo width={24} height={24} color={primaryColor} />
+              <IconFileVideo width={20} height={20} color="#fff" />
             </div>
             <div className="attachment-data">
               <p className="p1">{data.name}</p>
@@ -225,7 +226,7 @@ const ChatInput = ({
         return (
           <div className="attachment-cont" title={data.name}>
             <div className="attachment-icon">
-              <IconFileAudio width={24} height={24} color={primaryColor} />
+              <IconFileAudio width={20} height={20} color="#fff" />
             </div>
             <div className="attachment-data">
               <p className="p1">{data.name}</p>
@@ -237,7 +238,7 @@ const ChatInput = ({
         return (
           <div className="attachment-cont" title={data.name}>
             <div className="attachment-icon">
-              {getIconFile(data.type, 24, 24, primaryColor)}
+              {getIconFile(data.type, 20, 20, "#fff")}
             </div>
             <div className="attachment-data">
               <p className="p1">{data.name}</p>
@@ -250,7 +251,7 @@ const ChatInput = ({
         return (
           <div className="attachment-cont" title={data.name}>
             <div className="attachment-icon">
-              <IconFile width={24} height={24} color={primaryColor} />
+              <IconFile width={20} height={20} color="#fff" />
             </div>
             <div className="attachment-data">
               <p className="p1">{data.name}</p>
@@ -305,71 +306,72 @@ const ChatInput = ({
                   className="attachment-remove"
                   onClick={() => onRemoveFile(index)}
                 >
-                  <IconClose width={20} height={20} color={"#d32f2f"} />
+                  <IconClose width={18} height={18} color={"#d32f2f"} />
                 </div>
               </div>
             );
           })}
         </div>
       )}
-      <div className="chatbox-input-textarea">
-        <textarea
-          ref={chatInputRef}
-          placeholder="Send a Message"
-          spellCheck="false"
-          required
-          value={text}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyPress}
-        />
-        <div className="chatbox-input-emoji">
-          <button
-            type="button"
-            onClick={(event: any) => {
-              event.stopPropagation();
-              setShowPicker(!showPicker);
-            }}
-          >
-            <IconEmoji />
-          </button>
-          {showPicker && (
-            <div className="chatbox-picker">
-              <Picker
-                data={data}
-                onEmojiSelect={(emoji: any) => {
-                  handleEmojiClick(emoji.native);
-                }}
-                onClickOutside={() => setShowPicker(false)}
+      <div className="chatbox-input-row">
+        <div className="chatbox-input-actions">
+          <div className="chatbox-input-upload">
+            <label>
+              <IconLink width={20} height={20} color={primaryColor} />
+              <input
+                id="file-input"
+                type="file"
+                multiple
+                onChange={onChangeUpload}
               />
-            </div>
-          )}
+            </label>
+          </div>
+          <div className="chatbox-input-emoji">
+            <button
+              type="button"
+              onClick={(event: any) => {
+                event.stopPropagation();
+                setShowPicker(!showPicker);
+              }}
+            >
+              <IconEmoji width={20} height={20} color={primaryColor} />
+            </button>
+            {showPicker && (
+              <div className="chatbox-picker">
+                <Picker
+                  theme='dark'
+                  data={data}
+                  onEmojiSelect={(emoji: any) => {
+                    handleEmojiClick(emoji.native);
+                  }}
+                  onClickOutside={() => setShowPicker(false)}
+                />
+              </div>
+            )}
+          </div>
         </div>
-        <div className="chatbox-input-upload">
-          <label>
-            <IconLink />
-            <input
-              id="file-input"
-              type="file"
-              multiple
-              onChange={onChangeUpload}
-            />
-          </label>
+        <div className="chatbox-input-textarea">
+          <textarea
+            ref={chatInputRef}
+            placeholder="Send a Message"
+            spellCheck="false"
+            required
+            value={text}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyPress}
+          />
         </div>
-      </div>
-      <div
-        className={`chatbox-input-send ${checkDisabledButton() ? "disabled" : ""
-          }`}
-      >
-        <span
-          id="send-btn"
-          className="material-symbols-outlined"
-          onClick={onSendMessage}
-          style={{
-            color: primaryColor,
-          }}
+        <div
+          className={`chatbox-input-send ${checkDisabledButton() ? "disabled" : ""
+            }`}
         >
-          send
-        </span>
+          <span
+            id="send-btn"
+            onClick={onSendMessage}
+          >
+            <IconSend width={24} height={24} color={primaryColor} />
+          </span>
+        </div>
       </div>
     </div>
   );

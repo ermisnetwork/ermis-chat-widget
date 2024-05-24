@@ -24,9 +24,9 @@ const AttachmentMsg = ({ message, primaryColor }: IProps) => {
                   loading="lazy"
                   style={{
                     width: "100%",
-                    height: "100%",
+                    maxHeight: "300px",
                     borderRadius: "12px",
-                    objectFit: "cover",
+                    objectFit: "contain",
                     display: "block",
                   }}
                 />
@@ -36,9 +36,9 @@ const AttachmentMsg = ({ message, primaryColor }: IProps) => {
                   src={item.asset_url}
                   style={{
                     width: "100%",
-                    height: "100%",
+                    maxHeight: "300px",
                     borderRadius: "12px",
-                    objectFit: "cover",
+                    objectFit: "contain",
                     display: "block",
                   }}
                 />

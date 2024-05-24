@@ -8,6 +8,7 @@ interface ChatWidgetIProps {
     senderId: string;
     receiverId?: string;
     primaryColor?: string;
+    placement?: any;
 }
-declare const ErmisChatWidget: ({ apiKey, openWidget, onToggleWidget, token, senderId, receiverId, primaryColor, }: ChatWidgetIProps) => React.JSX.Element;
+declare const ErmisChatWidget: ({ apiKey, openWidget, onToggleWidget, token, senderId, receiverId, primaryColor, placement, }: ChatWidgetIProps) => React.JSX.Element;
 export default ErmisChatWidget;

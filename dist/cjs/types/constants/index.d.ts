@@ -1,8 +1,9 @@
 import React from "react";
 export declare const ChatIcon: () => React.JSX.Element;
 export declare const NoChat: () => React.JSX.Element;
-export declare const IconEmoji: () => React.JSX.Element;
-export declare const IconLink: () => React.JSX.Element;
+export declare const IconEmoji: ({ width, height, color }: any) => React.JSX.Element;
+export declare const IconLink: ({ width, height, color }: any) => React.JSX.Element;
+export declare const IconSend: ({ width, height, color }: any) => React.JSX.Element;
 export declare const IconFileVideo: ({ width, height, color }: any) => React.JSX.Element;
 export declare const IconFileAudio: ({ width, height, color }: any) => React.JSX.Element;
 export declare const IconFilePdf: ({ width, height, color }: any) => React.JSX.Element;

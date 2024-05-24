@@ -86,34 +86,23 @@ const ChatTimeline = ({
                 key={item.id}
               >
                 <div className="messageItem">
-                  <div className="messageItem-avatar">
-                    <MemberAvatar member={item.user} width={26} height={26} />
-                  </div>
-                  <div className="messageItem-info">
-                    <div className="messageItem-name">
-                      <span className="span1">{name}</span>
-                      <span className="span2">
-                        {getTimeFromDate(item.created_at)}
-                      </span>
-                    </div>
-                    <div className="messageItem-line">
-                      {item.attachments && item.attachments.length > 0 ? (
-                        <AttachmentMsg
-                          message={item}
-                          primaryColor={primaryColor}
-                        />
-                      ) : (
-                        <TextMsg message={item} />
-                      )}
-                    </div>
+                  <div className="messageItem-line" style={{ background: isMyMessage ? primaryColor : '#3a3635' }}>
+                    {item.attachments && item.attachments.length > 0 ? (
+                      <AttachmentMsg
+                        message={item}
+                        primaryColor={primaryColor}
+                      />
+                    ) : (
+                      <TextMsg message={item} />
+                    )}
                   </div>
                 </div>
               </div>
             );
           })}
         </div>
-      </InfiniteScroll>
-    </div>
+      </InfiniteScroll >
+    </div >
   );
 };
 

@@ -16394,37 +16394,41 @@ const NoChat = () => {
         React.createElement("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M542.668 490.175C542.969 489.891 543.444 489.905 543.728 490.207C546.259 492.896 551.405 494.21 554.925 492.345C555.291 492.151 555.745 492.29 555.939 492.656C556.133 493.022 555.993 493.476 555.627 493.67C551.459 495.879 545.598 494.382 542.636 491.235C542.352 490.933 542.366 490.459 542.668 490.175Z", fill: "#E7EAEE" }),
         React.createElement("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M547.435 513.696C552.7 511.149 547.257 501.709 542.162 505.53C538.894 507.98 542.477 516.095 547.435 513.696Z", fill: "#E7EAEE" })));
 };
-const IconEmoji = () => {
-    return (React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "22", height: "22", fill: "#000000", viewBox: "0 0 256 256" },
-        React.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z" })));
+const IconEmoji = ({ width, height, color }) => {
+    return (React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: width, height: height, fill: color, viewBox: "0 0 256 256" },
+        React.createElement("path", { d: "M128,24a104,104,0,1,0,30.57,203.43,7.9,7.9,0,0,0,3.3-2l63.57-63.57a8,8,0,0,0,2-3.31A104.09,104.09,0,0,0,128,24ZM92,96a12,12,0,1,1-12,12A12,12,0,0,1,92,96Zm82.92,60c-10.29,17.79-27.39,28-46.92,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.08-20a8,8,0,1,1,13.84,8ZM164,120a12,12,0,1,1,12-12A12,12,0,0,1,164,120Z" })));
 };
-const IconLink = () => {
-    return (React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "22", height: "22", fill: "#000000", viewBox: "0 0 256 256" },
-        React.createElement("path", { d: "M165.66,90.34a8,8,0,0,1,0,11.32l-64,64a8,8,0,0,1-11.32-11.32l64-64A8,8,0,0,1,165.66,90.34ZM215.6,40.4a56,56,0,0,0-79.2,0L106.34,70.45a8,8,0,0,0,11.32,11.32l30.06-30a40,40,0,0,1,56.57,56.56l-30.07,30.06a8,8,0,0,0,11.31,11.32L215.6,119.6a56,56,0,0,0,0-79.2ZM138.34,174.22l-30.06,30.06a40,40,0,1,1-56.56-56.57l30.05-30.05a8,8,0,0,0-11.32-11.32L40.4,136.4a56,56,0,0,0,79.2,79.2l30.06-30.07a8,8,0,0,0-11.32-11.31Z" })));
+const IconLink = ({ width, height, color }) => {
+    return (React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: width, height: height, fill: color, viewBox: "0 0 256 256" },
+        React.createElement("path", { d: "M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM152,160H136v16a8,8,0,0,1-16,0V160H104a8,8,0,0,1,0-16h16V128a8,8,0,0,1,16,0v16h16a8,8,0,0,1,0,16Zm0-72V43.31L196.69,88Z" })));
+};
+const IconSend = ({ width, height, color }) => {
+    return (React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: width, height: height, fill: color, viewBox: "0 0 256 256" },
+        React.createElement("path", { d: "M240,127.89a16,16,0,0,1-8.18,14L63.9,237.9A16.15,16.15,0,0,1,56,240a16,16,0,0,1-15-21.33l27-79.95A4,4,0,0,1,71.72,136H144a8,8,0,0,0,8-8.53,8.19,8.19,0,0,0-8.26-7.47h-72a4,4,0,0,1-3.79-2.72l-27-79.94A16,16,0,0,1,63.84,18.07l168,95.89A16,16,0,0,1,240,127.89Z" })));
 };
 const IconFileVideo = ({ width, height, color }) => {
     return (React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: width, height: height, fill: color, viewBox: "0 0 256 256" },
-        React.createElement("path", { d: "M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40v72a8,8,0,0,0,16,0V40h88V88a8,8,0,0,0,8,8h48V216h-8a8,8,0,0,0,0,16h8a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM155.88,145a8,8,0,0,0-8.12.22l-19.95,12.46A16,16,0,0,0,112,144H48a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h64a16,16,0,0,0,15.81-13.68l19.95,12.46A8,8,0,0,0,160,216V152A8,8,0,0,0,155.88,145ZM112,208H48V160h64v48Zm32-6.43-16-10V176.43l16-10Z" })));
+        React.createElement("path", { d: "M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40v72a8,8,0,0,0,16,0V40h88V88a8,8,0,0,0,8,8h48V216h-8a8,8,0,0,0,0,16h8a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM155.88,145a8,8,0,0,0-8.12.22l-19.95,12.46A16,16,0,0,0,112,144H48a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h64a16,16,0,0,0,15.81-13.68l19.95,12.46A8,8,0,0,0,160,216V152A8,8,0,0,0,155.88,145ZM144,201.57l-16-10V176.43l16-10Z" })));
 };
 const IconFileAudio = ({ width, height, color }) => {
     return (React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: width, height: height, fill: color, viewBox: "0 0 256 256" },
-        React.createElement("path", { d: "M99.06,128.61a8,8,0,0,0-8.72,1.73L68.69,152H48a8,8,0,0,0-8,8v40a8,8,0,0,0,8,8H68.69l21.65,21.66A8,8,0,0,0,104,224V136A8,8,0,0,0,99.06,128.61ZM88,204.69,77.66,194.34A8,8,0,0,0,72,192H56V168H72a8,8,0,0,0,5.66-2.34L88,155.31ZM152,180a40.55,40.55,0,0,1-20,34.91A8,8,0,0,1,124,201.09a24.49,24.49,0,0,0,0-42.18A8,8,0,0,1,132,145.09,40.55,40.55,0,0,1,152,180Zm61.66-97.66-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40v80a8,8,0,0,0,16,0V40h88V88a8,8,0,0,0,8,8h48V216H168a8,8,0,0,0,0,16h32a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160Z" })));
+        React.createElement("path", { d: "M152,180a40.55,40.55,0,0,1-20,34.91A8,8,0,0,1,124,201.09a24.49,24.49,0,0,0,0-42.18A8,8,0,0,1,132,145.09,40.55,40.55,0,0,1,152,180ZM99.06,128.61a8,8,0,0,0-8.72,1.73L68.69,152H48a8,8,0,0,0-8,8v40a8,8,0,0,0,8,8H68.69l21.65,21.66A8,8,0,0,0,104,224V136A8,8,0,0,0,99.06,128.61ZM216,88V216a16,16,0,0,1-16,16H168a8,8,0,0,1,0-16h32V96H152a8,8,0,0,1-8-8V40H56v80a8,8,0,0,1-16,0V40A16,16,0,0,1,56,24h96a8,8,0,0,1,5.66,2.34l56,56A8,8,0,0,1,216,88Zm-56-8h28.69L160,51.31Z" })));
 };
 const IconFilePdf = ({ width, height, color }) => {
     return (React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: width, height: height, fill: color, viewBox: "0 0 256 256" },
-        React.createElement("path", { d: "M224,152a8,8,0,0,1-8,8H192v16h16a8,8,0,0,1,0,16H192v16a8,8,0,0,1-16,0V152a8,8,0,0,1,8-8h32A8,8,0,0,1,224,152ZM92,172a28,28,0,0,1-28,28H56v8a8,8,0,0,1-16,0V152a8,8,0,0,1,8-8H64A28,28,0,0,1,92,172Zm-16,0a12,12,0,0,0-12-12H56v24h8A12,12,0,0,0,76,172Zm88,8a36,36,0,0,1-36,36H112a8,8,0,0,1-8-8V152a8,8,0,0,1,8-8h16A36,36,0,0,1,164,180Zm-16,0a20,20,0,0,0-20-20h-8v40h8A20,20,0,0,0,148,180ZM40,112V40A16,16,0,0,1,56,24h96a8,8,0,0,1,5.66,2.34l56,56A8,8,0,0,1,216,88v24a8,8,0,0,1-16,0V96H152a8,8,0,0,1-8-8V40H56v72a8,8,0,0,1-16,0ZM160,80h28.69L160,51.31Z" })));
+        React.createElement("path", { d: "M44,120H212a4,4,0,0,0,4-4V88a8,8,0,0,0-2.34-5.66l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40v76A4,4,0,0,0,44,120ZM152,44l44,44H152Zm72,108.53a8.18,8.18,0,0,1-8.25,7.47H192v16h15.73a8.17,8.17,0,0,1,8.25,7.47,8,8,0,0,1-8,8.53H192v15.73a8.17,8.17,0,0,1-7.47,8.25,8,8,0,0,1-8.53-8V152a8,8,0,0,1,8-8h32A8,8,0,0,1,224,152.53ZM64,144H48a8,8,0,0,0-8,8v55.73A8.17,8.17,0,0,0,47.47,216,8,8,0,0,0,56,208v-8h7.4c15.24,0,28.14-11.92,28.59-27.15A28,28,0,0,0,64,144Zm-.35,40H56V160h8a12,12,0,0,1,12,13.16A12.25,12.25,0,0,1,63.65,184ZM128,144H112a8,8,0,0,0-8,8v56a8,8,0,0,0,8,8h15.32c19.66,0,36.21-15.48,36.67-35.13A36,36,0,0,0,128,144Zm-.49,56H120V160h8a20,20,0,0,1,20,20.77C147.58,191.59,138.34,200,127.51,200Z" })));
 };
 const IconFileZip = ({ width, height, color }) => {
     return (React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: width, height: height, fill: color, viewBox: "0 0 256 256" },
-        React.createElement("path", { d: "M184,144H168a8,8,0,0,0-8,8v56a8,8,0,0,0,16,0v-8h8a28,28,0,0,0,0-56Zm0,40h-8V160h8a12,12,0,0,1,0,24Zm-48-32v56a8,8,0,0,1-16,0V152a8,8,0,0,1,16,0ZM96,208a8,8,0,0,1-8,8H56a8,8,0,0,1-7-12l25.16-44H56a8,8,0,0,1,0-16H88a8,8,0,0,1,7,12L69.79,200H88A8,8,0,0,1,96,208ZM213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40v72a8,8,0,0,0,16,0V40h88V88a8,8,0,0,0,8,8h48v16a8,8,0,0,0,16,0V88A8,8,0,0,0,213.66,82.34ZM160,80V51.31L188.69,80Z" })));
+        React.createElement("path", { d: "M184,144H168a8,8,0,0,0-8,8v55.73a8.17,8.17,0,0,0,7.47,8.25,8,8,0,0,0,8.53-8v-8h7.4c15.24,0,28.14-11.92,28.59-27.15A28,28,0,0,0,184,144Zm-.35,40H176V160h8A12,12,0,0,1,196,173.16,12.25,12.25,0,0,1,183.65,184ZM136,152v55.73a8.17,8.17,0,0,1-7.47,8.25,8,8,0,0,1-8.53-8V152.27a8.17,8.17,0,0,1,7.47-8.25A8,8,0,0,1,136,152ZM96,208.53A8.17,8.17,0,0,1,87.73,216H56.23a8.27,8.27,0,0,1-6-2.5A8,8,0,0,1,49.05,204l25.16-44H56.27A8.17,8.17,0,0,1,48,152.53,8,8,0,0,1,56,144H87.77a8.27,8.27,0,0,1,6,2.5A8,8,0,0,1,95,156L69.79,200H88A8,8,0,0,1,96,208.53ZM213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40v76a4,4,0,0,0,4,4H212a4,4,0,0,0,4-4V88A8,8,0,0,0,213.66,82.34ZM152,88V44l44,44Z" })));
 };
 const IconFileDoc = ({ width, height, color }) => {
     return (React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: width, height: height, fill: color, viewBox: "0 0 256 256" },
-        React.createElement("path", { d: "M52,144H36a8,8,0,0,0-8,8v56a8,8,0,0,0,8,8H52a36,36,0,0,0,0-72Zm0,56H44V160h8a20,20,0,0,1,0,40Zm169.53-4.91a8,8,0,0,1,.25,11.31A30.06,30.06,0,0,1,200,216c-17.65,0-32-16.15-32-36s14.35-36,32-36a30.06,30.06,0,0,1,21.78,9.6,8,8,0,0,1-11.56,11.06A14.24,14.24,0,0,0,200,160c-8.82,0-16,9-16,20s7.18,20,16,20a14.24,14.24,0,0,0,10.22-4.66A8,8,0,0,1,221.53,195.09ZM128,144c-17.65,0-32,16.15-32,36s14.35,36,32,36,32-16.15,32-36S145.65,144,128,144Zm0,56c-8.82,0-16-9-16-20s7.18-20,16-20,16,9,16,20S136.82,200,128,200ZM48,120a8,8,0,0,0,8-8V40h88V88a8,8,0,0,0,8,8h48v16a8,8,0,0,0,16,0V88a8,8,0,0,0-2.34-5.66l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40v72A8,8,0,0,0,48,120ZM160,51.31,188.69,80H160Z" })));
+        React.createElement("path", { d: "M44,120H212.07a4,4,0,0,0,4-4V88a8,8,0,0,0-2.34-5.66l-56-56A8,8,0,0,0,152.05,24H56A16,16,0,0,0,40,40v76A4,4,0,0,0,44,120Zm108-76,44,44h-44ZM52,144H36a8,8,0,0,0-8,8v56a8,8,0,0,0,8,8H51.33C71,216,87.55,200.52,88,180.87A36,36,0,0,0,52,144Zm-.49,56H44V160h8a20,20,0,0,1,20,20.77C71.59,191.59,62.35,200,51.52,200Zm170.67-4.28a8.26,8.26,0,0,1-.73,11.09,30,30,0,0,1-21.4,9.19c-17.65,0-32-16.15-32-36s14.36-36,32-36a30,30,0,0,1,21.4,9.19,8.26,8.26,0,0,1,.73,11.09,8,8,0,0,1-11.9.38A14.21,14.21,0,0,0,200.06,160c-8.82,0-16,9-16,20s7.18,20,16,20a14.25,14.25,0,0,0,10.23-4.66A8,8,0,0,1,222.19,195.72ZM128,144c-17.65,0-32,16.15-32,36s14.37,36,32,36,32-16.15,32-36S145.69,144,128,144Zm0,56c-8.83,0-16-9-16-20s7.18-20,16-20,16,9,16,20S136.86,200,128,200Z" })));
 };
 const IconFile = ({ width, height, color }) => {
     return (React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: width, height: height, fill: color, viewBox: "0 0 256 256" },
-        React.createElement("path", { d: "M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Z" })));
+        React.createElement("path", { d: "M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM152,88V44l44,44Z" })));
 };
 const IconClose = ({ width, height, color }) => {
     return (React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: width, height: height, fill: color, viewBox: "0 0 256 256" },
@@ -16602,14 +16606,6 @@ const formatString = (str) => {
     const end = str.substring(str.length - 6);
     return start + "..." + end;
 };
-const getTimeFromDate = (date) => {
-    if (!date)
-        return "";
-    const inputDate = new Date(date);
-    const hours = inputDate.getHours().toString().padStart(2, "0");
-    const minutes = inputDate.getMinutes().toString().padStart(2, "0");
-    return `${hours}:${minutes}`;
-};
 const uuidv4 = () => {
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
         const r = (Math.random() * 16) | 0, v = c === "x" ? r : (r & 0x3) | 0x8;
@@ -16703,37 +16699,6 @@ const ChannelList = ({ chatClient, channels, senderId, channelCurrent, setChanne
                 React.createElement("div", { className: "chatbox-item-cont" },
                     React.createElement("span", null, getChannelName(channel, senderId))))));
     })));
-};
-
-const MemberAvatar = ({ member, width, height }) => {
-    const [memberName, setMemberName] = React.useState("");
-    const [memberAvatar, setMemberAvatar] = React.useState("");
-    React.useEffect(() => {
-        if (member) {
-            setMemberName(member.id);
-            setMemberAvatar(member.img ? member.img : "");
-        }
-        else {
-            setMemberName('');
-            setMemberAvatar('');
-        }
-    }, [member]);
-    return (React.createElement("div", { className: "avatar", style: {
-            borderRadius: "50%",
-            overflow: "hidden",
-            width: width,
-            height: height,
-        } }, memberAvatar ? (React.createElement("img", { src: memberAvatar, alt: "avatar", style: { width: "100%", height: "100%", objectFit: "cover" } })) : (React.createElement("div", { style: {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "100%",
-            background: getColorName(memberName),
-            color: "#fff",
-            fontWeight: 600,
-            fontSize: getFontSizeAvatar(width),
-        } }, capitalizeFirstLetter(memberName)))));
 };
 
 const TextMsg = ({ message }) => {
@@ -17200,15 +17165,15 @@ const AttachmentMsg = ({ message, primaryColor }) => {
                 const type = item.type;
                 return (React.createElement("div", { className: "msgAttachments-item", key: index }, type === "image" ? (React.createElement("img", { src: item.image_url, alt: item.fallback, loading: "lazy", style: {
                         width: "100%",
-                        height: "100%",
+                        maxHeight: "300px",
                         borderRadius: "12px",
-                        objectFit: "cover",
+                        objectFit: "contain",
                         display: "block",
                     } })) : type === "video" ? (React.createElement("video", { controls: true, src: item.asset_url, style: {
                         width: "100%",
-                        height: "100%",
+                        maxHeight: "300px",
                         borderRadius: "12px",
-                        objectFit: "cover",
+                        objectFit: "contain",
                         display: "block",
                     } })) : (React.createElement("div", { className: "msgAttachments-file" },
                     React.createElement("div", { className: "msgAttachments-file-icon" }, getIconFile(item.mime_type, 30, 30, primaryColor)),
@@ -17264,16 +17229,10 @@ const ChatTimeline = ({ senderId, channelCurrent, primaryColor, setError, }) => 
             }, inverse: true, hasMore: true, loader: loadingMore && React.createElement(LoadingSpinner, { primaryColor: primaryColor }), scrollableTarget: "scrollableDiv" },
             React.createElement("div", { className: "listMessages" }, messages.map((item) => {
                 const isMyMessage = item.user.id === senderId;
-                const name = formatString(item.user.id);
+                formatString(item.user.id);
                 return (React.createElement("div", { className: `listMessages-item ${isMyMessage ? "myMessage" : "otherMessage"}`, key: item.id },
                     React.createElement("div", { className: "messageItem" },
-                        React.createElement("div", { className: "messageItem-avatar" },
-                            React.createElement(MemberAvatar, { member: item.user, width: 26, height: 26 })),
-                        React.createElement("div", { className: "messageItem-info" },
-                            React.createElement("div", { className: "messageItem-name" },
-                                React.createElement("span", { className: "span1" }, name),
-                                React.createElement("span", { className: "span2" }, getTimeFromDate(item.created_at))),
-                            React.createElement("div", { className: "messageItem-line" }, item.attachments && item.attachments.length > 0 ? (React.createElement(AttachmentMsg, { message: item, primaryColor: primaryColor })) : (React.createElement(TextMsg, { message: item })))))));
+                        React.createElement("div", { className: "messageItem-line", style: { background: isMyMessage ? primaryColor : '#3a3635' } }, item.attachments && item.attachments.length > 0 ? (React.createElement(AttachmentMsg, { message: item, primaryColor: primaryColor })) : (React.createElement(TextMsg, { message: item }))))));
             })))));
 };
 
@@ -60241,34 +60200,34 @@ const ChatInput = ({ primaryColor, senderId, channelCurrent, setError, }) => {
         switch (fileType) {
             case "image":
                 return (React.createElement("img", { src: data.url, alt: data.name, style: {
-                        width: "60px",
-                        height: "60px",
+                        width: "50px",
+                        height: "50px",
                         objectFit: "cover",
                     } }));
             case "video":
                 return (React.createElement("div", { className: "attachment-cont", title: data.name },
                     React.createElement("div", { className: "attachment-icon" },
-                        React.createElement(IconFileVideo, { width: 24, height: 24, color: primaryColor })),
+                        React.createElement(IconFileVideo, { width: 20, height: 20, color: "#fff" })),
                     React.createElement("div", { className: "attachment-data" },
                         React.createElement("p", { className: "p1" }, data.name),
                         React.createElement("p", { className: "p2" }, sizeInMB))));
             case "audio":
                 return (React.createElement("div", { className: "attachment-cont", title: data.name },
                     React.createElement("div", { className: "attachment-icon" },
-                        React.createElement(IconFileAudio, { width: 24, height: 24, color: primaryColor })),
+                        React.createElement(IconFileAudio, { width: 20, height: 20, color: "#fff" })),
                     React.createElement("div", { className: "attachment-data" },
                         React.createElement("p", { className: "p1" }, data.name),
                         React.createElement("p", { className: "p2" }, sizeInMB))));
             case "application":
                 return (React.createElement("div", { className: "attachment-cont", title: data.name },
-                    React.createElement("div", { className: "attachment-icon" }, getIconFile(data.type, 24, 24, primaryColor)),
+                    React.createElement("div", { className: "attachment-icon" }, getIconFile(data.type, 20, 20, "#fff")),
                     React.createElement("div", { className: "attachment-data" },
                         React.createElement("p", { className: "p1" }, data.name),
                         React.createElement("p", { className: "p2" }, sizeInMB))));
             default:
                 return (React.createElement("div", { className: "attachment-cont", title: data.name },
                     React.createElement("div", { className: "attachment-icon" },
-                        React.createElement(IconFile, { width: 24, height: 24, color: primaryColor })),
+                        React.createElement(IconFile, { width: 20, height: 20, color: "#fff" })),
                     React.createElement("div", { className: "attachment-data" },
                         React.createElement("p", { className: "p1" }, data.name),
                         React.createElement("p", { className: "p2" }, sizeInMB))));
@@ -60296,28 +60255,29 @@ const ChatInput = ({ primaryColor, senderId, channelCurrent, setError, }) => {
                         alignItems: "center",
                     } }, "Error")) : (renderMedia(item))),
                 React.createElement("div", { className: "attachment-remove", onClick: () => onRemoveFile(index) },
-                    React.createElement(IconClose, { width: 20, height: 20, color: "#d32f2f" }))));
+                    React.createElement(IconClose, { width: 18, height: 18, color: "#d32f2f" }))));
         }))),
-        React.createElement("div", { className: "chatbox-input-textarea" },
-            React.createElement("textarea", { ref: chatInputRef, placeholder: "Send a Message", spellCheck: "false", required: true, value: text, onChange: handleInputChange, onKeyDown: handleKeyPress }),
-            React.createElement("div", { className: "chatbox-input-emoji" },
-                React.createElement("button", { type: "button", onClick: (event) => {
-                        event.stopPropagation();
-                        setShowPicker(!showPicker);
-                    } },
-                    React.createElement(IconEmoji, null)),
-                showPicker && (React.createElement("div", { className: "chatbox-picker" },
-                    React.createElement($e5534fc185f7111e$export$2e2bcd8739ae039, { data: data, onEmojiSelect: (emoji) => {
-                            handleEmojiClick(emoji.native);
-                        }, onClickOutside: () => setShowPicker(false) })))),
-            React.createElement("div", { className: "chatbox-input-upload" },
-                React.createElement("label", null,
-                    React.createElement(IconLink, null),
-                    React.createElement("input", { id: "file-input", type: "file", multiple: true, onChange: onChangeUpload })))),
-        React.createElement("div", { className: `chatbox-input-send ${checkDisabledButton() ? "disabled" : ""}` },
-            React.createElement("span", { id: "send-btn", className: "material-symbols-outlined", onClick: onSendMessage, style: {
-                    color: primaryColor,
-                } }, "send"))));
+        React.createElement("div", { className: "chatbox-input-row" },
+            React.createElement("div", { className: "chatbox-input-actions" },
+                React.createElement("div", { className: "chatbox-input-upload" },
+                    React.createElement("label", null,
+                        React.createElement(IconLink, { width: 20, height: 20, color: primaryColor }),
+                        React.createElement("input", { id: "file-input", type: "file", multiple: true, onChange: onChangeUpload }))),
+                React.createElement("div", { className: "chatbox-input-emoji" },
+                    React.createElement("button", { type: "button", onClick: (event) => {
+                            event.stopPropagation();
+                            setShowPicker(!showPicker);
+                        } },
+                        React.createElement(IconEmoji, { width: 20, height: 20, color: primaryColor })),
+                    showPicker && (React.createElement("div", { className: "chatbox-picker" },
+                        React.createElement($e5534fc185f7111e$export$2e2bcd8739ae039, { theme: 'dark', data: data, onEmojiSelect: (emoji) => {
+                                handleEmojiClick(emoji.native);
+                            }, onClickOutside: () => setShowPicker(false) }))))),
+            React.createElement("div", { className: "chatbox-input-textarea" },
+                React.createElement("textarea", { ref: chatInputRef, placeholder: "Send a Message", spellCheck: "false", required: true, value: text, onChange: handleInputChange, onKeyDown: handleKeyPress })),
+            React.createElement("div", { className: `chatbox-input-send ${checkDisabledButton() ? "disabled" : ""}` },
+                React.createElement("span", { id: "send-btn", onClick: onSendMessage },
+                    React.createElement(IconSend, { width: 24, height: 24, color: primaryColor }))))));
 };
 
 const Notification = ({ message, onClose }) => {
@@ -60358,11 +60318,11 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = "@import url(\"https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;1,700&display=swap\");\n\n/* Import Material Symbols Outlined font */\n@import url(\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200\");\n\n/* Import Material Symbols Rounded font */\n@import url(\"https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0\");\n\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  font-family: \"Poppins\", sans-serif;\n}\n\n@keyframes color {\n  0% {\n    background-position: 0 50%;\n  }\n\n  50% {\n    background-position: 100% 50%;\n  }\n\n  100% {\n    background-position: 0 50%;\n  }\n}\n\n.chatbox-spinner {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0 15px;\n}\n\n.lds-ring,\n.lds-ring div {\n  box-sizing: border-box;\n}\n.lds-ring {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: relative;\n  width: 20px;\n  height: 20px;\n}\n.lds-ring div {\n  box-sizing: border-box;\n  display: block;\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  border: 2px solid currentColor;\n  border-radius: 50%;\n  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;\n  border-color: currentColor transparent transparent transparent;\n}\n.lds-ring div:nth-child(1) {\n  animation-delay: -0.45s;\n}\n.lds-ring div:nth-child(2) {\n  animation-delay: -0.3s;\n}\n.lds-ring div:nth-child(3) {\n  animation-delay: -0.15s;\n}\n@keyframes lds-ring {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n\n.chatbox-toggler {\n  position: fixed;\n  bottom: 40px;\n  right: 40px;\n  outline: none;\n  border: none;\n  height: 40px;\n  width: 40px;\n  display: flex;\n  cursor: pointer;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  background: #4aa017;\n  transition: all 0.2s ease;\n  box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),\n    0 32px 64px -48px rgba(0, 0, 0, 0.5);\n\n  &:hover {\n    background: #4aa017;\n  }\n\n  svg path {\n    fill: #fff;\n  }\n\n  @media (max-width: 991px) {\n    bottom: 20px;\n    right: 20px;\n  }\n\n  @media (max-width: 767px) {\n    bottom: 20px;\n    right: 20px;\n  }\n\n  @media (max-width: 575px) {\n    bottom: 20px;\n    right: 20px;\n  }\n\n  @media (max-width: 375px) {\n    bottom: 20px;\n    right: 20px;\n  }\n\n  @media (max-width: 320px) {\n    bottom: 20px;\n    right: 20px;\n  }\n}\n\n.chatbox-container.show-chatbox .chatbox-toggler {\n  transform: rotate(90deg);\n  background: #4aa017;\n}\n\n.chatbox-toggler span {\n  color: #fff;\n  position: absolute;\n  font-size: 1.2rem;\n  font-weight: 600;\n  transition: all 0.2s ease;\n}\n\n.chatbox-toggler span:last-child,\n.chatbox-container.show-chatbox .chatbox-toggler span:first-child {\n  opacity: 0;\n}\n\n.chatbox-container.show-chatbox .chatbox-toggler span:last-child {\n  opacity: 1;\n}\n\n.chatbox-wrapper {\n  position: fixed;\n  right: 70px;\n  bottom: 80px;\n  z-index: 10;\n  overflow: hidden;\n  width: 600px;\n  height: 520px;\n  transform: scale(0.5);\n  opacity: 0;\n  pointer-events: none;\n  background: #fff;\n  transform-origin: bottom right;\n  border-radius: 15px;\n  box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),\n    0 32px 64px -48px rgba (0, 0, 0, 0.5);\n  transition: all 0.1s ease;\n}\n\n.chatbox-container.show-chatbox .chatbox-wrapper {\n  opacity: 1;\n  pointer-events: auto;\n  transform: scale(1);\n}\n\n.chatbox-wrapper header {\n  background: #4aa017;\n  position: relative;\n  color: #fff;\n  padding: 12px;\n  border-radius: 15px 15px 0 0;\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n}\n\n.chatbox-wrapper header span {\n  position: absolute;\n  right: 15px;\n  top: 50%;\n  display: none;\n  cursor: pointer;\n  transform: translateY(-50%);\n}\n\n@media screen and (max-width: 992px) {\n  .chatbox-wrapper header span {\n    display: block;\n  }\n}\n\n.chatbox-wrapper header span svg {\n  height: 20px;\n  width: 20px;\n  fill: #fff;\n}\n\n.chatbox-wrapper header span:hover {\n  opacity: 0.8;\n}\n\n.chatbox-wrapper header span:first-child {\n  right: 55px;\n}\n\n.chatbox-wrapper header span:last-child {\n  right: 15px;\n}\n\n.chatbox-wrapper header h2 {\n  color: #fff;\n  font-size: 16px;\n  font-weight: 600;\n  letter-spacing: 0.5px;\n}\n\n.chatbox-body {\n  width: 100%;\n  height: calc(100% - 50px);\n  display: flex;\n  flex-direction: column;\n}\n\n.chatbox-wrapper main {\n  height: calc(100% - 49px);\n  display: flex;\n}\n\n.chatbox-cont {\n  width: calc(100% - 200px);\n}\n\n.chatbox-timeline {\n  padding: 15px;\n  background-color: #f0f4fa;\n  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);\n  flex: 1;\n  overflow-y: auto;\n  display: flex;\n  flex-direction: column-reverse;\n}\n\n.chatbox .chat {\n  display: flex;\n  list-style: none;\n  margin: -1px 0 0;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar {\n  width: 6px;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar-track {\n  background: #fff;\n  border-radius: 25px;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar-thumb {\n  background: #ccc;\n  border-radius: 25px;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar-thumb:hover {\n  background: #b3b3b3;\n}\n\n.chatbox-list {\n  width: 200px;\n  height: 100%;\n  overflow-y: auto;\n  -webkit-overflow-scrolling: touch;\n  background-color: #f8faff;\n  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);\n  padding: 6px 0;\n}\n\n.chatbox-list-col {\n  padding: 6px 12px;\n}\n\n.chatbox-cont {\n  width: calc(100% - 200px);\n  height: 100%;\n}\n\n.chatbox-header {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px 15px;\n  background-color: #f8faff;\n  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);\n}\n\n.chatbox-header-name {\n  display: flex;\n  align-items: center;\n}\n\n.chatbox-header-name .p1 {\n  font-size: 14px;\n  font-weight: 600;\n  padding-left: 12px;\n}\n\n.chatbox-item {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n  border-radius: 12px;\n  padding: 12px;\n  background-color: #fff;\n}\n\n.chatbox-item.active {\n  background-color: rgba(1, 98, 196, 0.5);\n}\n\n.chatbox-item .chatbox-item-cont {\n  flex: 1;\n  padding-left: 10px;\n}\n\n.chatbox-item .chatbox-item-cont span {\n  font-size: 14px;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  display: block;\n  width: 100%;\n}\n\n.chatbox-input {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  padding: 15px;\n  background-color: #f8faff;\n  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);\n  flex-wrap: wrap;\n}\n\n.chatbox-input-attachment {\n  display: flex;\n  overflow-x: auto;\n  padding-bottom: 15px;\n}\n\n.chatbox-input-attachment .attachment-col {\n  margin-right: 15px;\n  position: relative;\n}\n\n.chatbox-input-attachment .attachment-remove {\n  position: absolute;\n  top: 0;\n  right: 0;\n  cursor: pointer;\n}\n\n.chatbox-input-attachment .attachment-item {\n  min-width: 60px;\n  max-width: 120px;\n  height: 60px;\n  background-color: #fff;\n  border-radius: 8px;\n  overflow: hidden;\n}\n\n.chatbox-input-attachment .attachment-cont {\n  display: flex;\n  padding: 15px;\n}\n\n.chatbox-input-attachment .attachment-icon {\n  width: 24px;\n}\n\n.chatbox-input-attachment .attachment-data {\n  width: calc(100% - 24px);\n  padding-left: 5px;\n}\n\n.chatbox-input-attachment .attachment-data .p1 {\n  font-size: 12px;\n  font-weight: 600;\n  width: 100%;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n}\n\n.chatbox-input-attachment .attachment-data .p2 {\n  font-size: 10px;\n}\n\n.chatbox-input-textarea {\n  width: calc(100% - 40px);\n  display: flex;\n  padding-right: 15px;\n  position: relative;\n}\n\n.chatbox-input-textarea textarea {\n  width: 100%;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  line-height: 1.5;\n  resize: none;\n  border-radius: 12px;\n  height: 50px !important;\n  background: rgba(145, 158, 171, 0.12);\n  padding: 15px 70px 15px 15px;\n}\n\n.chatbox-input-emoji {\n  position: absolute;\n  right: 60px;\n  top: 13px;\n}\n\n.chatbox-input-emoji > button {\n  border: none;\n  display: flex;\n  cursor: pointer;\n}\n\n.chatbox-picker {\n  position: absolute;\n  bottom: 30px;\n  right: 0;\n  z-index: 1;\n}\n\n.chatbox-input-upload {\n  position: absolute;\n  right: 25px;\n  top: 13px;\n}\n\n.chatbox-input-upload label {\n  display: flex;\n  cursor: pointer;\n}\n\n.chatbox-input-upload input {\n  display: none;\n}\n\n.chatbox-input-send {\n  width: 40px;\n  height: 40px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  transition: 0.1s ease;\n}\n\n.chatbox-input-send:hover {\n  background: rgba(145, 158, 171, 0.12);\n}\n\n.chatbox-input-send span {\n  color: #4aa017;\n  font-size: 25px;\n  cursor: pointer;\n  transition: 0.3s ease;\n}\n\n.chatbox-input-send.disabled {\n  pointer-events: none;\n  opacity: 0.5;\n}\n\n.chatbox-input textarea:valid ~ span {\n  visibility: visible;\n}\n\n.messageItem {\n  display: flex;\n}\n\n.listMessages-item {\n  display: flex;\n  margin-bottom: 15px;\n}\n\n.listMessages-item.otherMessage {\n  justify-content: flex-start;\n}\n\n.listMessages-item.otherMessage .messageItem-avatar {\n  order: 1;\n}\n\n.listMessages-item.otherMessage .messageItem-info {\n  order: 2;\n}\n\n.listMessages-item.otherMessage .messageItem-line {\n  background-color: #fff;\n}\n\n/* -------------------- */\n\n.listMessages-item.myMessage {\n  justify-content: flex-end;\n}\n\n.listMessages-item.myMessage .messageItem-avatar {\n  order: 2;\n}\n\n.listMessages-item.myMessage .messageItem-info {\n  order: 1;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-end;\n}\n\n.listMessages-item.myMessage .messageItem-line {\n  background-color: #0162c4;\n  color: #fff;\n}\n\n.listMessages-item.myMessage .messageItem-name .span1 {\n  order: 2;\n}\n\n.listMessages-item.myMessage .messageItem-name .span2 {\n  order: 1;\n}\n\n.messageItem-info {\n  padding: 0 10px;\n}\n\n.messageItem-name {\n  font-size: 14px;\n  display: flex;\n  align-items: center;\n}\n\n.messageItem-name .span1 {\n  font-weight: 600;\n}\n\n.messageItem-name .span2 {\n  color: #666;\n  padding: 0 10px;\n}\n\n.messageItem-line {\n  padding: 10px;\n  border-radius: 12px;\n  font-size: 14px;\n  display: inline-flex;\n  max-width: 80%;\n}\n\n.msgAttachments-item {\n  margin-bottom: 15px;\n  padding: 5px;\n  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);\n  border-radius: 12px;\n}\n\n.msgAttachments-item:last-child {\n  margin-bottom: 0;\n}\n\n.msgAttachments-file {\n  display: flex;\n}\n\n.msgAttachments-file-data {\n  flex: 1;\n  padding-left: 10px;\n}\n\n@keyframes slideUp {\n  from {\n    transform: translateY(100%);\n    opacity: 0;\n  }\n  to {\n    transform: translateY(0);\n    opacity: 1;\n  }\n}\n\n.notification {\n  background-color: #f8d7da;\n  color: #721c24;\n  border: 1px solid #f5c6cb;\n  padding: 10px 15px;\n  position: absolute;\n  bottom: 15px;\n  left: 15px;\n  right: 15px;\n  z-index: 10;\n  border-radius: 4px;\n  display: flex;\n  justify-content: space-between;\n  align-items: baseline;\n  width: calc(100% - 30px);\n  animation: slideUp 0.3s ease-out;\n}\n\n.notification p {\n  margin: 0;\n  padding: 0;\n  flex: 1;\n  font-size: 14px;\n}\n\n.notification button {\n  background: none;\n  border: none;\n  color: #721c24;\n  cursor: pointer;\n  font-size: 16px;\n  margin-left: 20px;\n}\n\n/* -----------------------mobile----------------------- */\n\n@media (max-width: 767px) {\n  .chatbox-wrapper {\n    width: 100%;\n    height: 100%;\n    border-radius: 0;\n    bottom: 0;\n    right: 0;\n  }\n\n  .chatbox-wrapper header {\n    border-radius: 0;\n  }\n\n  .chatbox-wrapper .chatbox-input {\n    position: relative;\n  }\n\n  .chatbox-wrapper .chatbox-input textarea {\n    padding: 16px 15px 16px 0;\n  }\n\n  .chatbox-wrapper .chatbox-input span {\n    height: 55px;\n    line-height: 55px;\n    font-size: 1.35rem;\n  }\n}\n\n@media (max-width: 575px) {\n  .chatbox-wrapper {\n    width: 100%;\n    height: 100%;\n    border-radius: 0;\n    bottom: 0;\n    right: 0;\n  }\n\n  .chatbox-wrapper header {\n    border-radius: 0;\n  }\n\n  .chatbox-wrapper .chatbox-input {\n    position: relative;\n  }\n\n  .chatbox-wrapper .chatbox-input textarea {\n    padding: 16px 15px 16px 0;\n  }\n\n  .chatbox-wrapper .chatbox-input span {\n    height: 55px;\n    line-height: 55px;\n    font-size: 1.35rem;\n  }\n}\n";
+var css_248z = "@import url(\"https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;1,700&display=swap\");\n\n/* Import Material Symbols Outlined font */\n/* @import url(\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200\"); */\n\n/* Import Material Symbols Rounded font */\n/* @import url(\"https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0\"); */\n\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  font-family: \"Poppins\", sans-serif;\n}\n\n@keyframes color {\n  0% {\n    background-position: 0 50%;\n  }\n\n  50% {\n    background-position: 100% 50%;\n  }\n\n  100% {\n    background-position: 0 50%;\n  }\n}\n\n.chatbox-spinner {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0 15px;\n}\n\n.lds-ring,\n.lds-ring div {\n  box-sizing: border-box;\n}\n.lds-ring {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: relative;\n  width: 20px;\n  height: 20px;\n}\n.lds-ring div {\n  box-sizing: border-box;\n  display: block;\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  border: 2px solid currentColor;\n  border-radius: 50%;\n  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;\n  border-color: currentColor transparent transparent transparent;\n}\n.lds-ring div:nth-child(1) {\n  animation-delay: -0.45s;\n}\n.lds-ring div:nth-child(2) {\n  animation-delay: -0.3s;\n}\n.lds-ring div:nth-child(3) {\n  animation-delay: -0.15s;\n}\n@keyframes lds-ring {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n\n.chatbox-toggler {\n  outline: none;\n  border: none;\n  height: 40px;\n  width: 40px;\n  display: flex;\n  cursor: pointer;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  background: #4aa017;\n  transition: all 0.2s ease;\n  box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),\n    0 32px 64px -48px rgba(0, 0, 0, 0.5);\n\n  &:hover {\n    background: #4aa017;\n  }\n\n  svg path {\n    fill: #fff;\n  }\n}\n\n.chatbox-container.show-chatbox .chatbox-toggler {\n  transform: rotate(90deg);\n  background: #4aa017;\n}\n\n.chatbox-toggler span {\n  color: #fff;\n  position: absolute;\n  display: flex;\n  transition: all 0.2s ease;\n}\n\n.chatbox-toggler span:last-child,\n.chatbox-container.show-chatbox .chatbox-toggler span:first-child {\n  opacity: 0;\n}\n\n.chatbox-container.show-chatbox .chatbox-toggler span:last-child {\n  opacity: 1;\n}\n\n.chatbox-container {\n  position: fixed;\n  z-index: 10;\n}\n\n.chatbox-wrapper {\n  position: absolute;\n  right: 40px;\n  bottom: 30px;\n  z-index: 10;\n  overflow: hidden;\n  width: 600px;\n  height: 520px;\n  transform: scale(0.5);\n  opacity: 0;\n  visibility: hidden;\n  pointer-events: none;\n  background: #0f0f0f;\n  transform-origin: bottom right;\n  border-radius: 8px 8px 0 0;\n  transition: all 0.1s ease;\n}\n\n.chatbox-container.show-chatbox .chatbox-wrapper {\n  opacity: 1;\n  visibility: visible;\n  pointer-events: auto;\n  transform: scale(1);\n}\n\n.chatbox-wrapper header {\n  background: #4aa017;\n  position: relative;\n  color: #fff;\n  padding: 12px;\n  border-radius: 8px 8px 0 0;\n}\n\n.chatbox-wrapper header span {\n  position: absolute;\n  right: 15px;\n  top: 50%;\n  display: none;\n  cursor: pointer;\n  transform: translateY(-50%);\n}\n\n@media screen and (max-width: 992px) {\n  .chatbox-wrapper header span {\n    display: block;\n  }\n}\n\n.chatbox-wrapper header span svg {\n  height: 20px;\n  width: 20px;\n  fill: #fff;\n}\n\n.chatbox-wrapper header span:hover {\n  opacity: 0.8;\n}\n\n.chatbox-wrapper header span:first-child {\n  right: 55px;\n}\n\n.chatbox-wrapper header span:last-child {\n  right: 15px;\n}\n\n.chatbox-wrapper header h2 {\n  color: #fff;\n  font-size: 16px;\n  font-weight: 600;\n  letter-spacing: 0.5px;\n}\n\n.chatbox-body {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n}\n\n.chatbox-wrapper main {\n  height: calc(100% - 49px);\n  display: flex;\n}\n\n.chatbox-cont {\n  width: calc(100% - 200px);\n}\n\n.chatbox-timeline {\n  padding: 15px;\n  background-color: #0f0f0f;\n  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);\n  flex: 1;\n  overflow-y: auto;\n  display: flex;\n  flex-direction: column-reverse;\n}\n\n.chatbox .chat {\n  display: flex;\n  list-style: none;\n  margin: -1px 0 0;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar {\n  width: 6px;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar-track {\n  background: #fff;\n  border-radius: 25px;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar-thumb {\n  background: #ccc;\n  border-radius: 25px;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar-thumb:hover {\n  background: #b3b3b3;\n}\n\n.chatbox-list {\n  width: 200px;\n  height: 100%;\n  overflow-y: auto;\n  -webkit-overflow-scrolling: touch;\n  background-color: #0f0f0f;\n  padding: 6px 0;\n  border-right: 1px solid #3a3635;\n}\n\n.chatbox-list-col {\n  padding: 6px 12px;\n}\n\n.chatbox-cont {\n  width: calc(100% - 200px);\n  height: 100%;\n}\n\n.chatbox-header {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px 15px;\n  background-color: #f8faff;\n  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);\n}\n\n.chatbox-header-name {\n  display: flex;\n  align-items: center;\n}\n\n.chatbox-header-name .p1 {\n  font-size: 14px;\n  font-weight: 600;\n  padding-left: 12px;\n}\n\n.chatbox-item {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n  border-radius: 12px;\n  padding: 12px;\n  background-color: transparent;\n  transition: all 0.1s;\n}\n\n.chatbox-item:hover {\n  background-color: #262525;\n}\n\n.chatbox-item.active {\n  background-color: #262525;\n}\n\n.chatbox-item .chatbox-item-cont {\n  flex: 1;\n  padding-left: 10px;\n}\n\n.chatbox-item .chatbox-item-cont span {\n  font-size: 14px;\n  color: #fff;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  display: block;\n  width: 100%;\n}\n\n.chatbox-input {\n  width: 100%;\n  padding: 15px 15px 15px 5px;\n  background-color: #101010;\n  border-top: 1px solid #3a3635;\n}\n\n.chatbox-input-row {\n  display: flex;\n  align-items: center;\n}\n\n.chatbox-input-attachment {\n  display: flex;\n  overflow-x: auto;\n  padding-bottom: 15px;\n  padding-top: 8px;\n}\n\n.attachment-col {\n  margin-right: 15px;\n  position: relative;\n}\n\n.attachment-remove {\n  position: absolute;\n  top: -8px;\n  right: -8px;\n  cursor: pointer;\n}\n\n.attachment-item {\n  min-width: 50px;\n  max-width: 120px;\n  height: 50px;\n  background-color: #262525;\n  color: #fff;\n  border-radius: 8px;\n  overflow: hidden;\n}\n\n.attachment-cont {\n  display: flex;\n  padding: 10px 15px;\n}\n\n.attachment-icon {\n  width: 20px;\n}\n\n.attachment-data {\n  width: calc(100% - 20px);\n  padding-left: 5px;\n}\n\n.attachment-data .p1 {\n  font-size: 12px;\n  font-weight: 600;\n  width: 100%;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n}\n\n.attachment-data .p2 {\n  font-size: 10px;\n}\n\n.chatbox-input-textarea {\n  width: calc(100% - 84px);\n  display: flex;\n  padding: 0 10px 0 5px;\n  position: relative;\n}\n\n.chatbox-input-textarea textarea {\n  width: 100%;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  line-height: 1.5;\n  resize: none;\n  border-radius: 32px;\n  height: 36px !important;\n  background: #3a3635;\n  color: #fff;\n  padding: 7px 15px;\n}\n\n.chatbox-input-actions {\n  display: flex;\n  align-items: center;\n  width: 60px;\n}\n\n.chatbox-input-emoji {\n  position: relative;\n  padding: 5px;\n}\n\n.chatbox-input-emoji > button {\n  border: none;\n  display: flex;\n  cursor: pointer;\n  background: transparent;\n}\n\n.chatbox-picker {\n  position: absolute;\n  bottom: 30px;\n  left: 0;\n  z-index: 1;\n}\n\n.chatbox-input-upload {\n  padding: 5px;\n}\n\n.chatbox-input-upload label {\n  display: flex;\n  cursor: pointer;\n}\n\n.chatbox-input-upload input {\n  display: none;\n}\n\n.chatbox-input-send {\n  width: 24px;\n  height: 24px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  cursor: pointer;\n}\n\n.chatbox-input-send span {\n  cursor: pointer;\n  display: flex;\n}\n\n.chatbox-input-send.disabled {\n  pointer-events: none;\n  opacity: 0.5;\n}\n\n.chatbox-input textarea:valid ~ span {\n  visibility: visible;\n}\n\n.messageItem {\n  display: flex;\n  max-width: 80%;\n}\n\n.listMessages-item {\n  display: flex;\n  margin-bottom: 15px;\n}\n\n.listMessages-item.otherMessage {\n  justify-content: flex-start;\n}\n\n.listMessages-item.otherMessage .messageItem-line {\n  border-radius: 12px 12px 12px 0;\n}\n\n/* -------------------- */\n\n.listMessages-item.myMessage {\n  justify-content: flex-end;\n}\n\n.listMessages-item.myMessage .messageItem-line {\n  border-radius: 12px 12px 0 12px;\n}\n\n.messageItem-line {\n  padding: 10px;\n  font-size: 14px;\n  color: #fff;\n  display: inline-flex;\n}\n\n.msgAttachments-item {\n  margin-bottom: 15px;\n  padding: 5px;\n  border-radius: 12px;\n  background: #0f0f0f;\n}\n\n.msgAttachments-item:last-child {\n  margin-bottom: 0;\n}\n\n.msgAttachments-file {\n  display: flex;\n}\n\n.msgAttachments-file-data {\n  flex: 1;\n  padding-left: 10px;\n}\n\n@keyframes slideUp {\n  from {\n    transform: translateY(100%);\n    opacity: 0;\n  }\n  to {\n    transform: translateY(0);\n    opacity: 1;\n  }\n}\n\n.notification {\n  background-color: #f8d7da;\n  color: #721c24;\n  border: 1px solid #f5c6cb;\n  padding: 10px 15px;\n  position: absolute;\n  bottom: 15px;\n  left: 15px;\n  right: 15px;\n  z-index: 10;\n  border-radius: 4px;\n  display: flex;\n  justify-content: space-between;\n  align-items: baseline;\n  width: calc(100% - 30px);\n  animation: slideUp 0.3s ease-out;\n}\n\n.notification p {\n  margin: 0;\n  padding: 0;\n  flex: 1;\n  font-size: 14px;\n}\n\n.notification button {\n  background: none;\n  border: none;\n  color: #721c24;\n  cursor: pointer;\n  font-size: 16px;\n  margin-left: 20px;\n}\n\n/* -----------------------mobile----------------------- */\n\n@media only screen and (max-width: 767px) {\n  .chatbox-wrapper {\n    width: 100%;\n    height: 100%;\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n  }\n\n  .chatbox-sidebar {\n    width: 100%;\n  }\n\n  .chatbox-list {\n    width: 100%;\n  }\n\n  .chatbox-cont {\n    width: 100%;\n  }\n}\n";
 styleInject(css_248z);
 
 const BASE_URL = "https://api-staging.ermis.network";
-const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, token, senderId, receiverId = "", primaryColor = "#eb4034", }) => {
+const ErmisChatWidget = ({ apiKey = "", openWidget = false, onToggleWidget, token, senderId, receiverId = "", primaryColor = "#173fcf", placement = { top: "auto", left: "auto", bottom: "30px", right: "30px" }, }) => {
     const chatClient = ErmisChat.getInstance(apiKey, {
         enableInsights: true,
         enableWSFallback: true,
@@ -60375,6 +60335,9 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
     const [channelCurrent, setChannelCurrent] = React.useState(null);
     const [channels, setChannels] = React.useState([]);
     const [error, setError] = React.useState(null);
+    const [openSidebar, setOpenSidebar] = React.useState(true);
+    const [openTimeline, setOpenTimeline] = React.useState(true);
+    const isMobile = window.innerWidth < 768;
     React.useEffect(() => {
         if (lowCaseSenderId && token) {
             const connectUser = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -60453,11 +60416,11 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
                 if (lowCaseReceiverId) {
                     const channelOfReceiver = response.find((channel) => Object.values(channel.data.members).some((member) => member.user_id === lowCaseReceiverId));
                     if (channelOfReceiver) {
-                        console.log('----------connect existing channel----------');
+                        console.log("----------connect existing channel----------");
                         connectChannelOfReceiver(channelOfReceiver);
                     }
                     else {
-                        console.log('----------create new channel----------');
+                        console.log("----------create new channel----------");
                         createChannelOfReceiver();
                     }
                 }
@@ -60475,29 +60438,43 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
         getData();
     }, [getData]);
     React.useEffect(() => {
-        chatClient.on('notification.added_to_channel', (event) => __awaiter(void 0, void 0, void 0, function* () {
+        chatClient.on("notification.added_to_channel", (event) => __awaiter(void 0, void 0, void 0, function* () {
             fetchChannels();
         }));
     }, []);
+    React.useEffect(() => {
+        console.log("isMobile", isMobile);
+        if (isMobile) {
+            if (channelCurrent) {
+                setOpenSidebar(false);
+                setOpenTimeline(true);
+            }
+            else {
+                setOpenSidebar(true);
+                setOpenTimeline(false);
+            }
+        }
+    }, [isMobile, channelCurrent]);
     return (React.createElement("div", { className: `chatbox-container ${openWidget ? "show-chatbox" : ""}`, style: {
-            background: primaryColor,
-            backgroundColor: primaryColor,
+            top: placement.top,
+            left: placement.left,
+            right: placement.right,
+            bottom: placement.bottom,
         } },
         React.createElement("button", { className: "chatbox-toggler", onClick: toggleChatbox, style: { background: primaryColor } },
             React.createElement("span", { className: "material-symbols-rounded" },
                 React.createElement(ChatIcon, null)),
-            React.createElement("span", { className: "material-symbols-outlined" }, "Close")),
+            React.createElement("span", { className: "material-symbols-outlined" },
+                React.createElement(IconClose, { width: 18, height: 18, color: "#fff" }))),
         React.createElement("div", { className: "chatbox-wrapper" },
             React.createElement("header", { style: { background: primaryColor } },
-                React.createElement("h2", null, "Ermis chat"),
-                React.createElement("span", { className: "close-btn material-symbols-outlined", onClick: toggleChatbox }, "close")),
+                React.createElement("h2", null, "Chat"),
+                React.createElement("span", { className: "close-btn material-symbols-outlined", onClick: toggleChatbox },
+                    React.createElement(IconClose, { width: 18, height: 18, color: "#fff" }))),
             React.createElement("main", null,
-                React.createElement(ChannelList, { chatClient: chatClient, senderId: lowCaseSenderId, channels: channels, channelCurrent: channelCurrent, setChannelCurrent: setChannelCurrent, setError: setError }),
-                React.createElement("div", { className: "chatbox-cont" }, channelCurrent ? (React.createElement(React.Fragment, null,
-                    React.createElement("div", { className: "chatbox-header" },
-                        React.createElement("div", { className: "chatbox-header-name" },
-                            React.createElement(ChannelAvatar, { senderId: lowCaseSenderId, channel: channelCurrent, width: 30, height: 30 }),
-                            React.createElement("p", { className: "p1" }, getChannelName(channelCurrent, lowCaseSenderId)))),
+                openSidebar && (React.createElement("div", { className: "chatbox-sidebar" },
+                    React.createElement(ChannelList, { chatClient: chatClient, senderId: lowCaseSenderId, channels: channels, channelCurrent: channelCurrent, setChannelCurrent: setChannelCurrent, setError: setError }))),
+                openTimeline && (React.createElement("div", { className: "chatbox-cont" }, channelCurrent ? (React.createElement(React.Fragment, null,
                     React.createElement("div", { className: "chatbox-body" },
                         React.createElement(ChatTimeline, { senderId: lowCaseSenderId, channelCurrent: channelCurrent, primaryColor: primaryColor, setError: setError }),
                         React.createElement(ChatInput, { primaryColor: primaryColor, senderId: lowCaseSenderId, channelCurrent: channelCurrent, setError: setError })))) : (React.createElement("div", { style: {
@@ -60507,7 +60484,7 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
                         justifyContent: "center",
                         alignItems: "center",
                     } },
-                    React.createElement(NoChat, null))))),
+                    React.createElement(NoChat, null)))))),
             error && (React.createElement(Notification, { message: error, onClose: () => setError(null) })))));
 };
 
