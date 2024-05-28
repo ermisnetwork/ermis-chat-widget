@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 export declare const ChatIcon: () => React.JSX.Element;
 export declare const NoChat: () => React.JSX.Element;
 export declare const IconEmoji: ({ width, height, color }: any) => React.JSX.Element;
@@ -11,6 +11,7 @@ export declare const IconFileZip: ({ width, height, color }: any) => React.JSX.E
 export declare const IconFileDoc: ({ width, height, color }: any) => React.JSX.Element;
 export declare const IconFile: ({ width, height, color }: any) => React.JSX.Element;
 export declare const IconClose: ({ width, height, color }: any) => React.JSX.Element;
+export declare const IconCarretLeft: ({ width, height, color }: any) => React.JSX.Element;
 export declare enum ChatType {
     Messaging = "messaging",
     Team = "team"

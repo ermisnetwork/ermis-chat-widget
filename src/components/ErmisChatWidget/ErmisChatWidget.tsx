@@ -1,20 +1,21 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { ErmisChat } from "ermis-js-sdk";
-import { getChannelName } from "../../utils";
-import ChannelAvatar from "../../commons/ChannelAvatar";
+import React, { useState, useEffect, useCallback } from 'react';
+import { ErmisChat } from 'ermis-js-sdk';
+import { getChannelName } from '../../utils';
+import ChannelAvatar from '../../commons/ChannelAvatar';
 import {
   ChatIcon,
   ChatType,
   ERROR_MESSAGE,
+  IconCarretLeft,
   IconClose,
   NoChat,
   paramsQueryChannels,
-} from "../../constants";
-import ChannelList from "../../commons/ChannelList";
-import ChatTimeline from "../../commons/ChatTimeline";
-import ChatInput from "../../commons/ChatInput";
-import Notification from "../../commons/Notification";
-import "./style.css";
+} from '../../constants';
+import ChannelList from '../../commons/ChannelList';
+import ChatTimeline from '../../commons/ChatTimeline';
+import ChatInput from '../../commons/ChatInput';
+import Notification from '../../commons/Notification';
+import './style.css';
 
 interface ChatWidgetIProps {
   apiKey: string;
@@ -27,17 +28,17 @@ interface ChatWidgetIProps {
   placement?: any;
 }
 
-const BASE_URL = "https://api-staging.ermis.network";
+const BASE_URL = 'https://api-staging.ermis.network';
 
 const ErmisChatWidget = ({
-  apiKey = "",
+  apiKey = '',
   openWidget = false,
   onToggleWidget,
   token,
   senderId,
-  receiverId = "",
-  primaryColor = "#173fcf",
-  placement = { top: "auto", left: "auto", bottom: "30px", right: "30px" },
+  receiverId = '',
+  primaryColor = '#173fcf',
+  placement = { top: 'auto', left: 'auto', bottom: '30px', right: '30px' },
 }: ChatWidgetIProps) => {
   const chatClient = ErmisChat.getInstance(apiKey, {
     enableInsights: true,
@@ -47,7 +48,7 @@ const ErmisChatWidget = ({
   });
 
   const lowCaseSenderId = senderId.toLowerCase();
-  const lowCaseReceiverId = receiverId.toLowerCase() || "";
+  const lowCaseReceiverId = receiverId.toLowerCase() || '';
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [channelCurrent, setChannelCurrent] = useState<any>(null);
   const [channels, setChannels] = useState<any>([]);
@@ -66,7 +67,7 @@ const ErmisChatWidget = ({
               api_key: apiKey,
               id: lowCaseSenderId,
               name: lowCaseSenderId,
-              image: "",
+              image: '',
             },
             `Bearer ${token}`
           );
@@ -152,10 +153,10 @@ const ErmisChatWidget = ({
               )
             );
             if (channelOfReceiver) {
-              console.log("----------connect existing channel----------");
+              console.log('----------connect existing channel----------');
               connectChannelOfReceiver(channelOfReceiver);
             } else {
-              console.log("----------create new channel----------");
+              console.log('----------create new channel----------');
               createChannelOfReceiver();
             }
           }
@@ -174,13 +175,13 @@ const ErmisChatWidget = ({
   }, [getData]);
 
   useEffect(() => {
-    chatClient.on("notification.added_to_channel", async (event) => {
+    chatClient.on('notification.added_to_channel', async event => {
       fetchChannels();
     });
   }, []);
 
   useEffect(() => {
-    console.log("isMobile", isMobile);
+    console.log('isMobile', isMobile);
     if (isMobile) {
       if (channelCurrent) {
         setOpenSidebar(false);
@@ -194,7 +195,7 @@ const ErmisChatWidget = ({
 
   return (
     <div
-      className={`chatbox-container ${openWidget ? "show-chatbox" : ""}`}
+      className={`chatbox-container ${openWidget ? 'show-chatbox' : ''}`}
       style={{
         top: placement.top,
         left: placement.left,
@@ -218,12 +219,34 @@ const ErmisChatWidget = ({
       {/* -----------chatbox-wrapper--------- */}
       <div className="chatbox-wrapper">
         <header style={{ background: primaryColor }}>
-          <h2>Chat</h2>
+          {isMobile && channelCurrent && (
+            <span
+              className="back-btn material-symbols-outlined"
+              onClick={() => {
+                setOpenSidebar(true);
+                setOpenTimeline(false);
+                setChannelCurrent(null);
+              }}
+            >
+              <IconCarretLeft width={24} height={24} color="#fff" />
+            </span>
+          )}
+
+          {isMobile ? (
+            <h2>
+              {channelCurrent && openTimeline
+                ? getChannelName(channelCurrent, lowCaseSenderId)
+                : 'ErmisChat'}
+            </h2>
+          ) : (
+            <h2>ErmisChat</h2>
+          )}
+
           <span
             className="close-btn material-symbols-outlined"
             onClick={toggleChatbox}
           >
-            <IconClose width={18} height={18} color="#fff" />
+            <IconClose width={24} height={24} color="#fff" />
           </span>
         </header>
         <main>
@@ -265,11 +288,11 @@ const ErmisChatWidget = ({
               ) : (
                 <div
                   style={{
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}
                 >
                   <NoChat />

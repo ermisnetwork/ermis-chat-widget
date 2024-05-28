@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const ChatIcon = () => {
   return (
@@ -14,7 +14,7 @@ export const ChatIcon = () => {
       <path
         d="M53 3.293H5c-2.722 0-5 2.278-5 5v33c0 2.722 2.278 5 5 5h27.681l-4.439-5.161a1 1 0 1 1 1.517-1.304l4.998 5.811L43 54.707v-8.414h10c2.722 0 5-2.278 5-5v-33c0-2.722-2.278-5-5-5z"
         style={{
-          fill: "#fff",
+          fill: '#fff',
         }}
       />
       <circle
@@ -22,7 +22,7 @@ export const ChatIcon = () => {
         cy={24.799}
         r={3}
         style={{
-          fill: "#fff",
+          fill: '#fff',
         }}
       />
       <circle
@@ -30,7 +30,7 @@ export const ChatIcon = () => {
         cy={24.799}
         r={3}
         style={{
-          fill: "#fff",
+          fill: '#fff',
         }}
       />
       <circle
@@ -38,7 +38,7 @@ export const ChatIcon = () => {
         cy={24.799}
         r={3}
         style={{
-          fill: "#fff",
+          fill: '#fff',
         }}
       />
     </svg>
@@ -499,17 +499,31 @@ export const IconClose = ({ width, height, color }: any) => {
       fill={color}
       viewBox="0 0 256 256"
     >
-      <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+      <path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"></path>
+    </svg>
+  );
+};
+
+export const IconCarretLeft = ({ width, height, color }: any) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      fill={color}
+      viewBox="0 0 256 256"
+    >
+      <path d="M168.49,199.51a12,12,0,0,1-17,17l-80-80a12,12,0,0,1,0-17l80-80a12,12,0,0,1,17,17L97,128Z"></path>
     </svg>
   );
 };
 
 export enum ChatType {
-  Messaging = "messaging",
-  Team = "team",
+  Messaging = 'messaging',
+  Team = 'team',
 }
 
-export const ERROR_MESSAGE = "Something went wrong";
+export const ERROR_MESSAGE = 'Something went wrong';
 
 export const paramsQueryChannels: any = {
   filter: { type: ChatType.Messaging },
