@@ -1,7 +1,7 @@
-import React from "react";
-import { getChannelName } from "../utils";
-import ChannelAvatar from "./ChannelAvatar";
-import { ERROR_MESSAGE } from "../constants";
+import React from 'react';
+import { getChannelName } from '../utils';
+import ChannelAvatar from './ChannelAvatar';
+import { ERROR_MESSAGE } from '../constants';
 
 export interface IProps {
   chatClient: any;
@@ -10,6 +10,7 @@ export interface IProps {
   channelCurrent: any;
   setChannelCurrent: (channel: any) => void;
   setError: (err: any) => void;
+  allUsers: any[];
 }
 
 const ChannelList = ({
@@ -19,6 +20,7 @@ const ChannelList = ({
   channelCurrent,
   setChannelCurrent,
   setError,
+  allUsers,
 }: IProps) => {
   const onSelectChannel = async (channel: any) => {
     try {
@@ -39,29 +41,37 @@ const ChannelList = ({
 
   return (
     <div className="chatbox-list">
-      {channels.map((channel: any) => {
-        return (
-          <div className="chatbox-list-col" key={channel.id}>
-            <div
-              className={`chatbox-item ${channel.id === channelCurrent?.id ? "active" : ""
+      {channels.length > 0 ? (
+        channels.map((channel: any) => {
+          return (
+            <div className="chatbox-list-col" key={channel.id}>
+              <div
+                className={`chatbox-item ${
+                  channel.id === channelCurrent?.id ? 'active' : ''
                 }`}
-              onClick={() => onSelectChannel(channel)}
-            >
-              <div className="chatbox-item-avatar">
-                <ChannelAvatar
-                  senderId={senderId}
-                  channel={channel}
-                  width={30}
-                  height={30}
-                />
-              </div>
-              <div className="chatbox-item-cont">
-                <span>{getChannelName(channel, senderId)}</span>
+                onClick={() => onSelectChannel(channel)}
+              >
+                <div className="chatbox-item-avatar">
+                  <ChannelAvatar
+                    senderId={senderId}
+                    channel={channel}
+                    width={30}
+                    height={30}
+                    allUsers={allUsers}
+                  />
+                </div>
+                <div className="chatbox-item-cont">
+                  <span>{getChannelName(channel, senderId, allUsers)}</span>
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })
+      ) : (
+        <div className="chatbox-list-empty">
+          <p>No conversion yet</p>
+        </div>
+      )}
     </div>
   );
 };

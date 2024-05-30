@@ -1,20 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   capitalizeFirstLetter,
   getColorName,
   getFontSizeAvatar,
-} from "../utils";
+} from '../utils';
 
 export interface IProps {
   senderId: string;
   channel: any;
   width: number;
   height: number;
+  allUsers: any[];
 }
 
-const ChannelAvatar = ({ senderId, channel, width, height }: IProps) => {
-  const [memberName, setMemberName] = useState<string>("");
-  const [memberAvatar, setMemberAvatar] = useState<string>("");
+const ChannelAvatar = ({
+  senderId,
+  channel,
+  width,
+  height,
+  allUsers,
+}: IProps) => {
+  const [member, setMember] = useState<any>({ name: '', avatar: '' });
 
   useEffect(() => {
     if (channel) {
@@ -24,46 +30,50 @@ const ChannelAvatar = ({ senderId, channel, width, height }: IProps) => {
       );
 
       if (otherMember) {
-        setMemberName(otherMember.user.id);
-        setMemberAvatar(otherMember.user.img ? otherMember.user.img : "");
+        const userInfo =
+          allUsers && allUsers.find(user => user.id === otherMember.user.id);
+        setMember(
+          userInfo ? userInfo : { name: otherMember.user.id, avatar: '' }
+        );
+      } else {
+        setMember({ name: '', avatar: '' });
       }
     } else {
-      setMemberName('')
-      setMemberAvatar('')
+      setMember({ name: '', avatar: '' });
     }
-  }, [senderId, channel]);
+  }, [senderId, channel, allUsers]);
 
   return (
     <div
       className="avatar"
       style={{
-        borderRadius: "50%",
-        overflow: "hidden",
+        borderRadius: '50%',
+        overflow: 'hidden',
         width: width,
         height: height,
       }}
     >
-      {memberAvatar ? (
+      {member.avatar ? (
         <img
-          src={memberAvatar}
+          src={member.avatar}
           alt="avatar"
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
       ) : (
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "100%",
-            background: getColorName(memberName),
-            color: "#fff",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            height: '100%',
+            background: getColorName(member.name),
+            color: '#fff',
             fontWeight: 600,
             fontSize: getFontSizeAvatar(width),
           }}
         >
-          {capitalizeFirstLetter(memberName)}
+          {capitalizeFirstLetter(member.name)}
         </div>
       )}
     </div>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ErmisChat } from 'ermis-js-sdk';
 import { getChannelName } from '../../utils';
-import ChannelAvatar from '../../commons/ChannelAvatar';
 import {
   ChatIcon,
   ChatType,
@@ -15,6 +14,7 @@ import ChannelList from '../../commons/ChannelList';
 import ChatTimeline from '../../commons/ChatTimeline';
 import ChatInput from '../../commons/ChatInput';
 import Notification from '../../commons/Notification';
+import LoadingSpinner from '../../commons/LoadingSpinner';
 import './style.css';
 
 interface ChatWidgetIProps {
@@ -28,7 +28,7 @@ interface ChatWidgetIProps {
   placement?: any;
 }
 
-const BASE_URL = 'https://api-staging.ermis.network';
+const BASE_URL = 'https://api.ermis.network';
 
 const ErmisChatWidget = ({
   apiKey = '',
@@ -55,8 +55,41 @@ const ErmisChatWidget = ({
   const [error, setError] = useState<any>(null);
   const [openSidebar, setOpenSidebar] = useState<boolean>(true);
   const [openTimeline, setOpenTimeline] = useState<boolean>(true);
+  const [loadingWidget, setLoadingWidget] = useState<boolean>(true);
+  const [allUsers, setAllUsers] = useState<any>([]);
 
   const isMobile = window.innerWidth < 768;
+
+  useEffect(() => {
+    if (openWidget) {
+      const timer = setTimeout(() => {
+        setLoadingWidget(false);
+      }, 500);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    } else {
+      setLoadingWidget(true);
+    }
+  }, [openWidget]);
+
+  const fetchAllUsers = async (token: string) => {
+    const response = await fetch(`${BASE_URL}/uss/v1/users?limit=3000`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
+    if (response.ok) {
+      setAllUsers(result.results);
+    } else {
+      setAllUsers([]);
+      setError(result.message || ERROR_MESSAGE);
+    }
+  };
 
   useEffect(() => {
     if (lowCaseSenderId && token) {
@@ -77,6 +110,7 @@ const ErmisChatWidget = ({
         }
       };
       connectUser();
+      fetchAllUsers(token);
     } else {
       setIsLoggedIn(false);
     }
@@ -87,6 +121,7 @@ const ErmisChatWidget = ({
   };
 
   const fetchChannels = async () => {
+    // call when listen event added_to_channel
     await chatClient
       .queryChannels(
         paramsQueryChannels.filter,
@@ -112,7 +147,6 @@ const ErmisChatWidget = ({
         setChannelCurrent(newChannel);
       } catch (err: any) {
         setError(err.message || ERROR_MESSAGE);
-        return null;
       }
     }
   };
@@ -181,7 +215,6 @@ const ErmisChatWidget = ({
   }, []);
 
   useEffect(() => {
-    console.log('isMobile', isMobile);
     if (isMobile) {
       if (channelCurrent) {
         setOpenSidebar(false);
@@ -235,7 +268,7 @@ const ErmisChatWidget = ({
           {isMobile ? (
             <h2>
               {channelCurrent && openTimeline
-                ? getChannelName(channelCurrent, lowCaseSenderId)
+                ? getChannelName(channelCurrent, lowCaseSenderId, allUsers)
                 : 'ErmisChat'}
             </h2>
           ) : (
@@ -250,6 +283,12 @@ const ErmisChatWidget = ({
           </span>
         </header>
         <main>
+          {loadingWidget && (
+            <div className="chatbox-loading">
+              <LoadingSpinner primaryColor={primaryColor} />
+            </div>
+          )}
+
           {/* -----------chatbox-list--------- */}
           {openSidebar && (
             <div className="chatbox-sidebar">
@@ -260,6 +299,7 @@ const ErmisChatWidget = ({
                 channelCurrent={channelCurrent}
                 setChannelCurrent={setChannelCurrent}
                 setError={setError}
+                allUsers={allUsers}
               />
             </div>
           )}

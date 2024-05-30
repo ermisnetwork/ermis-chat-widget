@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 export interface IProps {
     chatClient: any;
     channels: any[];
@@ -6,6 +6,7 @@ export interface IProps {
     channelCurrent: any;
     setChannelCurrent: (channel: any) => void;
     setError: (err: any) => void;
+    allUsers: any[];
 }
-declare const ChannelList: ({ chatClient, channels, senderId, channelCurrent, setChannelCurrent, setError, }: IProps) => React.JSX.Element;
+declare const ChannelList: ({ chatClient, channels, senderId, channelCurrent, setChannelCurrent, setError, allUsers, }: IProps) => React.JSX.Element;
 export default ChannelList;

@@ -1,5 +1,5 @@
-import React from "react";
-export declare const getChannelName: (channel: any, userId: string) => any;
+import React from 'react';
+export declare const getChannelName: (channel: any, userId: string, allUsers: any[]) => any;
 export declare const capitalizeFirstLetter: (string: string) => string;
 export declare const getColorName: (name: string) => string;
 export declare const getFontSizeAvatar: (size: number) => string;

@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import { formatString, getTimeFromDate } from "../utils";
-import MemberAvatar from "./MemberAvatar";
-import TextMsg from "./TextMsg";
-import InfiniteScroll from "react-infinite-scroll-component";
-import LoadingSpinner from "./LoadingSpinner";
-import AttachmentMsg from "./AttachmentMsg";
-import { ERROR_MESSAGE } from "../constants";
+import React, { useEffect, useRef, useState } from 'react';
+import { formatString, getTimeFromDate } from '../utils';
+import TextMsg from './TextMsg';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import LoadingSpinner from './LoadingSpinner';
+import AttachmentMsg from './AttachmentMsg';
+import { ERROR_MESSAGE } from '../constants';
 
 export interface IProps {
   senderId: string;
@@ -32,7 +31,7 @@ const ChatTimeline = ({
       const messages = channelCurrent.state.messages;
       setMessages(messages);
 
-      channelCurrent?.on("message.new", (event: any) => {
+      channelCurrent?.on('message.new', (event: any) => {
         setMessages(channelCurrent.state.messages);
         if (chatboxRef.current && chatboxRef.current.scrollHeight) {
           chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
@@ -66,9 +65,9 @@ const ChatTimeline = ({
         dataLength={messages.length}
         next={fetchMoreMessages}
         style={{
-          display: "flex",
-          flexDirection: "column-reverse",
-          position: "relative",
+          display: 'flex',
+          flexDirection: 'column-reverse',
+          position: 'relative',
         }}
         inverse={true}
         hasMore={true}
@@ -81,12 +80,18 @@ const ChatTimeline = ({
             const name = formatString(item.user.id);
             return (
               <div
-                className={`listMessages-item ${isMyMessage ? "myMessage" : "otherMessage"
-                  }`}
+                className={`listMessages-item ${
+                  isMyMessage ? 'myMessage' : 'otherMessage'
+                }`}
                 key={item.id}
               >
                 <div className="messageItem">
-                  <div className="messageItem-line" style={{ background: isMyMessage ? primaryColor : '#3a3635' }}>
+                  <div
+                    className="messageItem-line"
+                    style={{
+                      background: isMyMessage ? primaryColor : '#3a3635',
+                    }}
+                  >
                     {item.attachments && item.attachments.length > 0 ? (
                       <AttachmentMsg
                         message={item}
@@ -101,8 +106,8 @@ const ChatTimeline = ({
             );
           })}
         </div>
-      </InfiniteScroll >
-    </div >
+      </InfiniteScroll>
+    </div>
   );
 };
 

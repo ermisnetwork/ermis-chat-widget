@@ -16456,23 +16456,31 @@ const paramsQueryChannels = {
     },
 };
 
-const getChannelName = (channel, userId) => {
+const getChannelName = (channel, userId, allUsers) => {
     if (!channel)
-        return "";
+        return '';
     const myUserId = userId;
-    if (channel.data.type === "messaging") {
+    if (channel.data.type === 'messaging') {
         const otherMember = Object.values(channel.state.members).find((member) => member.user.id !== myUserId);
-        return otherMember ? formatString(otherMember.user.id) : '';
+        let name = '';
+        if (otherMember) {
+            const userInfo = allUsers && allUsers.find(user => user.id === otherMember.user.id);
+            name = userInfo ? userInfo.name : otherMember.user.id;
+        }
+        else {
+            name = '';
+        }
+        return formatString(name);
     }
     return channel.data.name;
 };
 const capitalizeFirstLetter = (string) => {
     if (!string)
-        return "";
+        return '';
     return string.charAt(0).toUpperCase();
 };
 const getColorName = (name) => {
-    let firstLetter = "";
+    let firstLetter = '';
     if (name) {
         if (name.length >= 25) {
             firstLetter = name.charAt(name.length - 1).toUpperCase();
@@ -16482,120 +16490,120 @@ const getColorName = (name) => {
         }
     }
     else {
-        firstLetter = "";
+        firstLetter = '';
     }
     let color;
     switch (firstLetter) {
-        case "A":
-            color = "linear-gradient(#FF5733, #C70039)";
+        case 'A':
+            color = 'linear-gradient(#FF5733, #C70039)';
             break;
-        case "B":
-            color = "linear-gradient(#85C1E9, #21618C)";
+        case 'B':
+            color = 'linear-gradient(#85C1E9, #21618C)';
             break;
-        case "C":
-            color = "linear-gradient(#DAF7A6, #FFC300)";
+        case 'C':
+            color = 'linear-gradient(#DAF7A6, #FFC300)';
             break;
-        case "D":
-            color = "linear-gradient(#FFC0CB, #FF1493)";
+        case 'D':
+            color = 'linear-gradient(#FFC0CB, #FF1493)';
             break;
-        case "E":
-            color = "linear-gradient(#8E44AD, #2980B9)";
+        case 'E':
+            color = 'linear-gradient(#8E44AD, #2980B9)';
             break;
-        case "F":
-            color = "linear-gradient(#F39C12, #D35400)";
+        case 'F':
+            color = 'linear-gradient(#F39C12, #D35400)';
             break;
-        case "G":
-            color = "linear-gradient(#AED6F1, #2E86C1)";
+        case 'G':
+            color = 'linear-gradient(#AED6F1, #2E86C1)';
             break;
-        case "H":
-            color = "linear-gradient(#58D68D, #28B463)";
+        case 'H':
+            color = 'linear-gradient(#58D68D, #28B463)';
             break;
-        case "I":
-            color = "linear-gradient(#F4D03F, #F39C12)";
+        case 'I':
+            color = 'linear-gradient(#F4D03F, #F39C12)';
             break;
-        case "J":
-            color = "linear-gradient(#EB984E, #CB4335)";
+        case 'J':
+            color = 'linear-gradient(#EB984E, #CB4335)';
             break;
-        case "K":
-            color = "linear-gradient(#A569BD, #8E44AD)";
+        case 'K':
+            color = 'linear-gradient(#A569BD, #8E44AD)';
             break;
-        case "L":
-            color = "linear-gradient(#F5B041, #DC7633)";
+        case 'L':
+            color = 'linear-gradient(#F5B041, #DC7633)';
             break;
-        case "M":
-            color = "linear-gradient(#76D7C4, #48C9B0)";
+        case 'M':
+            color = 'linear-gradient(#76D7C4, #48C9B0)';
             break;
-        case "N":
-            color = "linear-gradient(#85929E, #34495E)";
+        case 'N':
+            color = 'linear-gradient(#85929E, #34495E)';
             break;
-        case "O":
-            color = "linear-gradient(#FF5733, #900C3F)";
+        case 'O':
+            color = 'linear-gradient(#FF5733, #900C3F)';
             break;
-        case "P":
-            color = "linear-gradient(#5DADE2, #2E86C1)";
+        case 'P':
+            color = 'linear-gradient(#5DADE2, #2E86C1)';
             break;
-        case "Q":
-            color = "linear-gradient(#ABEBC6, #239B56)";
+        case 'Q':
+            color = 'linear-gradient(#ABEBC6, #239B56)';
             break;
-        case "R":
-            color = "linear-gradient(#FAD7A0, #E59866)";
+        case 'R':
+            color = 'linear-gradient(#FAD7A0, #E59866)';
             break;
-        case "S":
-            color = "linear-gradient(#D7DBDD, #566573)";
+        case 'S':
+            color = 'linear-gradient(#D7DBDD, #566573)';
             break;
-        case "T":
-            color = "linear-gradient(#B2BABB, #626567)";
+        case 'T':
+            color = 'linear-gradient(#B2BABB, #626567)';
             break;
-        case "U":
-            color = "linear-gradient(#D2B4DE, #8E44AD)";
+        case 'U':
+            color = 'linear-gradient(#D2B4DE, #8E44AD)';
             break;
-        case "V":
-            color = "linear-gradient(#C39BD3, #7D3C98)";
+        case 'V':
+            color = 'linear-gradient(#C39BD3, #7D3C98)';
             break;
-        case "W":
-            color = "linear-gradient(#BB8FCE, #8E44AD)";
+        case 'W':
+            color = 'linear-gradient(#BB8FCE, #8E44AD)';
             break;
-        case "X":
-            color = "linear-gradient(#F7DC6F, #F1C40F)";
+        case 'X':
+            color = 'linear-gradient(#F7DC6F, #F1C40F)';
             break;
-        case "Y":
-            color = "linear-gradient(#52BE80, #27AE60)";
+        case 'Y':
+            color = 'linear-gradient(#52BE80, #27AE60)';
             break;
-        case "Z":
-            color = "linear-gradient(#1ABC9C, #16A085)";
+        case 'Z':
+            color = 'linear-gradient(#1ABC9C, #16A085)';
             break;
-        case "0":
-            color = "linear-gradient(#00FF00, #006600)";
+        case '0':
+            color = 'linear-gradient(#00FF00, #006600)';
             break;
-        case "1":
-            color = "linear-gradient(#FFFF00, #FFD700)";
+        case '1':
+            color = 'linear-gradient(#FFFF00, #FFD700)';
             break;
-        case "2":
-            color = "linear-gradient(#FF0000, #8B0000)";
+        case '2':
+            color = 'linear-gradient(#FF0000, #8B0000)';
             break;
-        case "3":
-            color = "linear-gradient(#E6E6FA, #D8BFD8)";
+        case '3':
+            color = 'linear-gradient(#E6E6FA, #D8BFD8)';
             break;
-        case "4":
-            color = "linear-gradient(#0000FF, #00008B)";
+        case '4':
+            color = 'linear-gradient(#0000FF, #00008B)';
             break;
-        case "5":
-            color = "linear-gradient(#800080, #4B0082)";
+        case '5':
+            color = 'linear-gradient(#800080, #4B0082)';
             break;
-        case "6":
-            color = "linear-gradient(#BADA55, #8CBF3F)";
+        case '6':
+            color = 'linear-gradient(#BADA55, #8CBF3F)';
             break;
-        case "7":
-            color = "linear-gradient(#8B4513, #A0522D)";
+        case '7':
+            color = 'linear-gradient(#8B4513, #A0522D)';
             break;
-        case "8":
-            color = "linear-gradient(#1E90FF, #4169E1)";
+        case '8':
+            color = 'linear-gradient(#1E90FF, #4169E1)';
             break;
-        case "9":
-            color = "linear-gradient(#996633, #663300)";
+        case '9':
+            color = 'linear-gradient(#996633, #663300)';
             break;
         default:
-            color = "linear-gradient(#B694F9, #6C61DF)";
+            color = 'linear-gradient(#B694F9, #6C61DF)';
     }
     return color;
 };
@@ -16608,33 +16616,33 @@ const formatString = (str) => {
     }
     const start = str.substring(0, 4);
     const end = str.substring(str.length - 6);
-    return start + "..." + end;
+    return start + '...' + end;
 };
 const uuidv4 = () => {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-        const r = (Math.random() * 16) | 0, v = c === "x" ? r : (r & 0x3) | 0x8;
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = (Math.random() * 16) | 0, v = c === 'x' ? r : (r & 0x3) | 0x8;
         return v.toString(16);
     });
 };
 const getSizeInMb = (size) => {
     if (!size)
-        return "0 MB";
-    const sizeInMB = (size / (1024 * 1024)).toFixed(2) + " MB";
+        return '0 MB';
+    const sizeInMB = (size / (1024 * 1024)).toFixed(2) + ' MB';
     return sizeInMB;
 };
 const getIconFile = (type, width, height, color) => {
-    const fileType = type.split("/")[0];
-    if (fileType === "audio") {
+    const fileType = type.split('/')[0];
+    if (fileType === 'audio') {
         return React.createElement(IconFileAudio, { width: width, height: height, color: color });
     }
     else {
-        if (type === "application/pdf") {
+        if (type === 'application/pdf') {
             return React.createElement(IconFilePdf, { width: width, height: height, color: color });
         }
-        else if (type === "application/zip") {
+        else if (type === 'application/zip') {
             return React.createElement(IconFileZip, { width: width, height: height, color: color });
         }
-        else if (type === "application/msword") {
+        else if (type === 'application/msword') {
             return React.createElement(IconFileDoc, { width: width, height: height, color: color });
         }
         else {
@@ -16643,42 +16651,43 @@ const getIconFile = (type, width, height, color) => {
     }
 };
 
-const ChannelAvatar = ({ senderId, channel, width, height }) => {
-    const [memberName, setMemberName] = React.useState("");
-    const [memberAvatar, setMemberAvatar] = React.useState("");
+const ChannelAvatar = ({ senderId, channel, width, height, allUsers, }) => {
+    const [member, setMember] = React.useState({ name: '', avatar: '' });
     React.useEffect(() => {
         if (channel) {
             const members = Object.values(channel.state.members);
             const otherMember = members.find((member) => member.user_id !== senderId);
             if (otherMember) {
-                setMemberName(otherMember.user.id);
-                setMemberAvatar(otherMember.user.img ? otherMember.user.img : "");
+                const userInfo = allUsers && allUsers.find(user => user.id === otherMember.user.id);
+                setMember(userInfo ? userInfo : { name: otherMember.user.id, avatar: '' });
+            }
+            else {
+                setMember({ name: '', avatar: '' });
             }
         }
         else {
-            setMemberName('');
-            setMemberAvatar('');
+            setMember({ name: '', avatar: '' });
         }
-    }, [senderId, channel]);
+    }, [senderId, channel, allUsers]);
     return (React.createElement("div", { className: "avatar", style: {
-            borderRadius: "50%",
-            overflow: "hidden",
+            borderRadius: '50%',
+            overflow: 'hidden',
             width: width,
             height: height,
-        } }, memberAvatar ? (React.createElement("img", { src: memberAvatar, alt: "avatar", style: { width: "100%", height: "100%", objectFit: "cover" } })) : (React.createElement("div", { style: {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "100%",
-            background: getColorName(memberName),
-            color: "#fff",
+        } }, member.avatar ? (React.createElement("img", { src: member.avatar, alt: "avatar", style: { width: '100%', height: '100%', objectFit: 'cover' } })) : (React.createElement("div", { style: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            height: '100%',
+            background: getColorName(member.name),
+            color: '#fff',
             fontWeight: 600,
             fontSize: getFontSizeAvatar(width),
-        } }, capitalizeFirstLetter(memberName)))));
+        } }, capitalizeFirstLetter(member.name)))));
 };
 
-const ChannelList = ({ chatClient, channels, senderId, channelCurrent, setChannelCurrent, setError, }) => {
+const ChannelList = ({ chatClient, channels, senderId, channelCurrent, setChannelCurrent, setError, allUsers, }) => {
     const onSelectChannel = (channel) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const chanelId = channel.data.id;
@@ -16695,14 +16704,15 @@ const ChannelList = ({ chatClient, channels, senderId, channelCurrent, setChanne
             setError(err.message || ERROR_MESSAGE);
         }
     });
-    return (React.createElement("div", { className: "chatbox-list" }, channels.map((channel) => {
+    return (React.createElement("div", { className: "chatbox-list" }, channels.length > 0 ? (channels.map((channel) => {
         return (React.createElement("div", { className: "chatbox-list-col", key: channel.id },
-            React.createElement("div", { className: `chatbox-item ${channel.id === (channelCurrent === null || channelCurrent === void 0 ? void 0 : channelCurrent.id) ? "active" : ""}`, onClick: () => onSelectChannel(channel) },
+            React.createElement("div", { className: `chatbox-item ${channel.id === (channelCurrent === null || channelCurrent === void 0 ? void 0 : channelCurrent.id) ? 'active' : ''}`, onClick: () => onSelectChannel(channel) },
                 React.createElement("div", { className: "chatbox-item-avatar" },
-                    React.createElement(ChannelAvatar, { senderId: senderId, channel: channel, width: 30, height: 30 })),
+                    React.createElement(ChannelAvatar, { senderId: senderId, channel: channel, width: 30, height: 30, allUsers: allUsers })),
                 React.createElement("div", { className: "chatbox-item-cont" },
-                    React.createElement("span", null, getChannelName(channel, senderId))))));
-    })));
+                    React.createElement("span", null, getChannelName(channel, senderId, allUsers))))));
+    })) : (React.createElement("div", { className: "chatbox-list-empty" },
+        React.createElement("p", null, "No conversion yet")))));
 };
 
 const TextMsg = ({ message }) => {
@@ -17199,7 +17209,7 @@ const ChatTimeline = ({ senderId, channelCurrent, primaryColor, setError, }) => 
             }
             const messages = channelCurrent.state.messages;
             setMessages(messages);
-            channelCurrent === null || channelCurrent === void 0 ? void 0 : channelCurrent.on("message.new", (event) => {
+            channelCurrent === null || channelCurrent === void 0 ? void 0 : channelCurrent.on('message.new', (event) => {
                 setMessages(channelCurrent.state.messages);
                 if (chatboxRef.current && chatboxRef.current.scrollHeight) {
                     chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
@@ -17227,16 +17237,18 @@ const ChatTimeline = ({ senderId, channelCurrent, primaryColor, setError, }) => 
     });
     return (React.createElement("div", { className: "chatbox-timeline", ref: chatboxRef, id: "scrollableDiv" },
         React.createElement(InfiniteScroll, { dataLength: messages.length, next: fetchMoreMessages, style: {
-                display: "flex",
-                flexDirection: "column-reverse",
-                position: "relative",
+                display: 'flex',
+                flexDirection: 'column-reverse',
+                position: 'relative',
             }, inverse: true, hasMore: true, loader: loadingMore && React.createElement(LoadingSpinner, { primaryColor: primaryColor }), scrollableTarget: "scrollableDiv" },
             React.createElement("div", { className: "listMessages" }, messages.map((item) => {
                 const isMyMessage = item.user.id === senderId;
                 formatString(item.user.id);
-                return (React.createElement("div", { className: `listMessages-item ${isMyMessage ? "myMessage" : "otherMessage"}`, key: item.id },
+                return (React.createElement("div", { className: `listMessages-item ${isMyMessage ? 'myMessage' : 'otherMessage'}`, key: item.id },
                     React.createElement("div", { className: "messageItem" },
-                        React.createElement("div", { className: "messageItem-line", style: { background: isMyMessage ? primaryColor : '#3a3635' } }, item.attachments && item.attachments.length > 0 ? (React.createElement(AttachmentMsg, { message: item, primaryColor: primaryColor })) : (React.createElement(TextMsg, { message: item }))))));
+                        React.createElement("div", { className: "messageItem-line", style: {
+                                background: isMyMessage ? primaryColor : '#3a3635',
+                            } }, item.attachments && item.attachments.length > 0 ? (React.createElement(AttachmentMsg, { message: item, primaryColor: primaryColor })) : (React.createElement(TextMsg, { message: item }))))));
             })))));
 };
 
@@ -60322,10 +60334,10 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = "@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;1,700&display=swap');\n\n/* Import Material Symbols Outlined font */\n/* @import url(\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200\"); */\n\n/* Import Material Symbols Rounded font */\n/* @import url(\"https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0\"); */\n\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  font-family: 'Poppins', sans-serif;\n}\n\n@keyframes color {\n  0% {\n    background-position: 0 50%;\n  }\n\n  50% {\n    background-position: 100% 50%;\n  }\n\n  100% {\n    background-position: 0 50%;\n  }\n}\n\n.chatbox-spinner {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0 15px;\n}\n\n.lds-ring,\n.lds-ring div {\n  box-sizing: border-box;\n}\n.lds-ring {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: relative;\n  width: 20px;\n  height: 20px;\n}\n.lds-ring div {\n  box-sizing: border-box;\n  display: block;\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  border: 2px solid currentColor;\n  border-radius: 50%;\n  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;\n  border-color: currentColor transparent transparent transparent;\n}\n.lds-ring div:nth-child(1) {\n  animation-delay: -0.45s;\n}\n.lds-ring div:nth-child(2) {\n  animation-delay: -0.3s;\n}\n.lds-ring div:nth-child(3) {\n  animation-delay: -0.15s;\n}\n@keyframes lds-ring {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n\n.chatbox-toggler {\n  outline: none;\n  border: none;\n  height: 40px;\n  width: 40px;\n  display: flex;\n  cursor: pointer;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  background: #4aa017;\n  transition: all 0.2s ease;\n  box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),\n    0 32px 64px -48px rgba(0, 0, 0, 0.5);\n\n  &:hover {\n    background: #4aa017;\n  }\n\n  svg path {\n    fill: #fff;\n  }\n}\n\n.chatbox-container.show-chatbox .chatbox-toggler {\n  transform: rotate(90deg);\n  background: #4aa017;\n}\n\n.chatbox-toggler span {\n  color: #fff;\n  position: absolute;\n  display: flex;\n  transition: all 0.2s ease;\n}\n\n.chatbox-toggler span:last-child,\n.chatbox-container.show-chatbox .chatbox-toggler span:first-child {\n  opacity: 0;\n}\n\n.chatbox-container.show-chatbox .chatbox-toggler span:last-child {\n  opacity: 1;\n}\n\n.chatbox-container {\n  position: fixed;\n  z-index: 10;\n}\n\n.chatbox-wrapper {\n  position: absolute;\n  right: 40px;\n  bottom: 30px;\n  z-index: 10;\n  overflow: hidden;\n  width: 600px;\n  height: 520px;\n  transform: scale(0.5);\n  opacity: 0;\n  visibility: hidden;\n  pointer-events: none;\n  background: #0f0f0f;\n  transform-origin: bottom right;\n  border-radius: 8px 8px 0 0;\n  transition: all 0.1s ease;\n}\n\n.chatbox-container.show-chatbox .chatbox-wrapper {\n  opacity: 1;\n  visibility: visible;\n  pointer-events: auto;\n  transform: scale(1);\n}\n\n.chatbox-wrapper header {\n  background: #4aa017;\n  position: relative;\n  color: #fff;\n  padding: 12px;\n  border-radius: 8px 8px 0 0;\n  display: flex;\n  align-items: center;\n}\n\n.chatbox-wrapper header h2 {\n  color: #fff;\n  font-size: 16px;\n  font-weight: 600;\n  letter-spacing: 0.5px;\n  flex: 1;\n}\n\n.chatbox-wrapper header > span {\n  display: flex;\n}\n\n.chatbox-wrapper header .back-btn {\n  padding-right: 10px;\n}\n\n.chatbox-wrapper header .close-btn {\n  cursor: pointer;\n}\n\n.chatbox-body {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n}\n\n.chatbox-wrapper main {\n  height: calc(100% - 49px);\n  display: flex;\n}\n\n.chatbox-cont {\n  width: calc(100% - 200px);\n}\n\n.chatbox-timeline {\n  padding: 15px;\n  background-color: #0f0f0f;\n  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);\n  flex: 1;\n  overflow-y: auto;\n  display: flex;\n  flex-direction: column-reverse;\n}\n\n.chatbox .chat {\n  display: flex;\n  list-style: none;\n  margin: -1px 0 0;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar {\n  width: 6px;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar-track {\n  background: #fff;\n  border-radius: 25px;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar-thumb {\n  background: #ccc;\n  border-radius: 25px;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar-thumb:hover {\n  background: #b3b3b3;\n}\n\n.chatbox-list {\n  width: 200px;\n  height: 100%;\n  overflow-y: auto;\n  -webkit-overflow-scrolling: touch;\n  background-color: #0f0f0f;\n  padding: 6px 0;\n  border-right: 1px solid #3a3635;\n}\n\n.chatbox-list-col {\n  padding: 6px 12px;\n}\n\n.chatbox-cont {\n  width: calc(100% - 200px);\n  height: 100%;\n}\n\n.chatbox-header {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px 15px;\n  background-color: #f8faff;\n  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);\n}\n\n.chatbox-header-name {\n  display: flex;\n  align-items: center;\n}\n\n.chatbox-header-name .p1 {\n  font-size: 14px;\n  font-weight: 600;\n  padding-left: 12px;\n}\n\n.chatbox-item {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n  border-radius: 12px;\n  padding: 12px;\n  background-color: transparent;\n  transition: all 0.1s;\n}\n\n.chatbox-item:hover {\n  background-color: #262525;\n}\n\n.chatbox-item.active {\n  background-color: #262525;\n}\n\n.chatbox-item .chatbox-item-cont {\n  flex: 1;\n  padding-left: 10px;\n}\n\n.chatbox-item .chatbox-item-cont span {\n  font-size: 14px;\n  color: #fff;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  display: block;\n  width: 100%;\n}\n\n.chatbox-input {\n  width: 100%;\n  padding: 15px 15px 15px 5px;\n  background-color: #101010;\n  border-top: 1px solid #3a3635;\n}\n\n.chatbox-input-row {\n  display: flex;\n  align-items: center;\n}\n\n.chatbox-input-attachment {\n  display: flex;\n  overflow-x: auto;\n  padding-bottom: 15px;\n  padding-top: 8px;\n}\n\n.attachment-col {\n  margin-right: 15px;\n  position: relative;\n}\n\n.attachment-remove {\n  position: absolute;\n  top: -8px;\n  right: -8px;\n  cursor: pointer;\n}\n\n.attachment-item {\n  min-width: 50px;\n  max-width: 120px;\n  height: 50px;\n  background-color: #262525;\n  color: #fff;\n  border-radius: 8px;\n  overflow: hidden;\n}\n\n.attachment-cont {\n  display: flex;\n  padding: 10px 15px;\n}\n\n.attachment-icon {\n  width: 20px;\n}\n\n.attachment-data {\n  width: calc(100% - 20px);\n  padding-left: 5px;\n}\n\n.attachment-data .p1 {\n  font-size: 12px;\n  font-weight: 600;\n  width: 100%;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n}\n\n.attachment-data .p2 {\n  font-size: 10px;\n}\n\n.chatbox-input-textarea {\n  width: calc(100% - 84px);\n  display: flex;\n  padding: 0 10px 0 5px;\n  position: relative;\n}\n\n.chatbox-input-textarea textarea {\n  width: 100%;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  line-height: 1.5;\n  resize: none;\n  border-radius: 32px;\n  height: 36px !important;\n  background: #3a3635;\n  color: #fff;\n  padding: 7px 15px;\n}\n\n.chatbox-input-actions {\n  display: flex;\n  align-items: center;\n  width: 60px;\n}\n\n.chatbox-input-emoji {\n  position: relative;\n  padding: 5px;\n}\n\n.chatbox-input-emoji > button {\n  border: none;\n  display: flex;\n  cursor: pointer;\n  background: transparent;\n}\n\n.chatbox-picker {\n  position: absolute;\n  bottom: 30px;\n  left: 0;\n  z-index: 1;\n}\n\n.chatbox-input-upload {\n  padding: 5px;\n}\n\n.chatbox-input-upload label {\n  display: flex;\n  cursor: pointer;\n}\n\n.chatbox-input-upload input {\n  display: none;\n}\n\n.chatbox-input-send {\n  width: 24px;\n  height: 24px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  cursor: pointer;\n}\n\n.chatbox-input-send span {\n  cursor: pointer;\n  display: flex;\n}\n\n.chatbox-input-send.disabled {\n  pointer-events: none;\n  opacity: 0.5;\n}\n\n.chatbox-input textarea:valid ~ span {\n  visibility: visible;\n}\n\n.messageItem {\n  display: flex;\n  max-width: 80%;\n}\n\n.listMessages-item {\n  display: flex;\n  margin-bottom: 15px;\n}\n\n.listMessages-item.otherMessage {\n  justify-content: flex-start;\n}\n\n.listMessages-item.otherMessage .messageItem-line {\n  border-radius: 12px 12px 12px 0;\n}\n\n/* -------------------- */\n\n.listMessages-item.myMessage {\n  justify-content: flex-end;\n}\n\n.listMessages-item.myMessage .messageItem-line {\n  border-radius: 12px 12px 0 12px;\n}\n\n.messageItem-line {\n  padding: 10px;\n  font-size: 14px;\n  color: #fff;\n  display: inline-flex;\n}\n\n.msgAttachments-item {\n  margin-bottom: 15px;\n  padding: 5px;\n  border-radius: 12px;\n  background: #0f0f0f;\n}\n\n.msgAttachments-item:last-child {\n  margin-bottom: 0;\n}\n\n.msgAttachments-file {\n  display: flex;\n}\n\n.msgAttachments-file-data {\n  flex: 1;\n  padding-left: 10px;\n}\n\n@keyframes slideUp {\n  from {\n    transform: translateY(100%);\n    opacity: 0;\n  }\n  to {\n    transform: translateY(0);\n    opacity: 1;\n  }\n}\n\n.notification {\n  background-color: #f8d7da;\n  color: #721c24;\n  border: 1px solid #f5c6cb;\n  padding: 10px 15px;\n  position: absolute;\n  bottom: 15px;\n  left: 15px;\n  right: 15px;\n  z-index: 10;\n  border-radius: 4px;\n  display: flex;\n  justify-content: space-between;\n  align-items: baseline;\n  width: calc(100% - 30px);\n  animation: slideUp 0.3s ease-out;\n}\n\n.notification p {\n  margin: 0;\n  padding: 0;\n  flex: 1;\n  font-size: 14px;\n}\n\n.notification button {\n  background: none;\n  border: none;\n  color: #721c24;\n  cursor: pointer;\n  font-size: 16px;\n  margin-left: 20px;\n}\n\n/* -----------------------mobile----------------------- */\n\n@media only screen and (max-width: 767px) {\n  .chatbox-wrapper {\n    width: 100%;\n    height: calc(100% - 50px);\n    position: fixed;\n    left: 0;\n    right: 0;\n    bottom: 0;\n  }\n\n  .chatbox-sidebar {\n    width: 100%;\n  }\n\n  .chatbox-list {\n    width: 100%;\n  }\n\n  .chatbox-cont {\n    width: 100%;\n  }\n\n  .chatbox-list-col {\n    border-bottom: 1px solid #3a3636;\n  }\n}\n";
+var css_248z = "@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;1,700&display=swap');\n\n/* Import Material Symbols Outlined font */\n/* @import url(\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200\"); */\n\n/* Import Material Symbols Rounded font */\n/* @import url(\"https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0\"); */\n\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  font-family: 'Poppins', sans-serif;\n}\n\n@keyframes color {\n  0% {\n    background-position: 0 50%;\n  }\n\n  50% {\n    background-position: 100% 50%;\n  }\n\n  100% {\n    background-position: 0 50%;\n  }\n}\n\n.chatbox-spinner {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0 15px;\n}\n\n.lds-ring,\n.lds-ring div {\n  box-sizing: border-box;\n}\n.lds-ring {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: relative;\n  width: 20px;\n  height: 20px;\n}\n.lds-ring div {\n  box-sizing: border-box;\n  display: block;\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  border: 2px solid currentColor;\n  border-radius: 50%;\n  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;\n  border-color: currentColor transparent transparent transparent;\n}\n.lds-ring div:nth-child(1) {\n  animation-delay: -0.45s;\n}\n.lds-ring div:nth-child(2) {\n  animation-delay: -0.3s;\n}\n.lds-ring div:nth-child(3) {\n  animation-delay: -0.15s;\n}\n@keyframes lds-ring {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n\n.chatbox-toggler {\n  outline: none;\n  border: none;\n  height: 40px;\n  width: 40px;\n  display: flex;\n  cursor: pointer;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  background: #4aa017;\n  transition: all 0.2s ease;\n  box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),\n    0 32px 64px -48px rgba(0, 0, 0, 0.5);\n\n  &:hover {\n    background: #4aa017;\n  }\n\n  svg path {\n    fill: #fff;\n  }\n}\n\n.chatbox-container.show-chatbox .chatbox-toggler {\n  transform: rotate(90deg);\n  background: #4aa017;\n}\n\n.chatbox-toggler span {\n  color: #fff;\n  position: absolute;\n  display: flex;\n  transition: all 0.2s ease;\n}\n\n.chatbox-toggler span:last-child,\n.chatbox-container.show-chatbox .chatbox-toggler span:first-child {\n  opacity: 0;\n}\n\n.chatbox-container.show-chatbox .chatbox-toggler span:last-child {\n  opacity: 1;\n}\n\n.chatbox-container {\n  position: fixed;\n  z-index: 10;\n}\n\n.chatbox-wrapper {\n  position: absolute;\n  right: 40px;\n  bottom: 30px;\n  z-index: 10;\n  overflow: hidden;\n  width: 600px;\n  height: 520px;\n  transform: scale(0.5);\n  opacity: 0;\n  visibility: hidden;\n  pointer-events: none;\n  background: #0f0f0f;\n  transform-origin: bottom right;\n  border-radius: 8px 8px 0 0;\n  transition: all 0.1s ease;\n}\n\n.chatbox-container.show-chatbox .chatbox-wrapper {\n  opacity: 1;\n  visibility: visible;\n  pointer-events: auto;\n  transform: scale(1);\n}\n\n.chatbox-wrapper header {\n  background: #4aa017;\n  position: relative;\n  color: #fff;\n  padding: 12px;\n  border-radius: 8px 8px 0 0;\n  display: flex;\n  align-items: center;\n}\n\n.chatbox-wrapper header h2 {\n  color: #fff;\n  font-size: 16px;\n  font-weight: 600;\n  letter-spacing: 0.5px;\n  flex: 1;\n}\n\n.chatbox-wrapper header > span {\n  display: flex;\n}\n\n.chatbox-wrapper header .back-btn {\n  padding-right: 10px;\n}\n\n.chatbox-wrapper header .close-btn {\n  cursor: pointer;\n}\n\n.chatbox-body {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n}\n\n.chatbox-wrapper main {\n  height: calc(100% - 49px);\n  display: flex;\n}\n\n.chatbox-cont {\n  width: calc(100% - 200px);\n}\n\n.chatbox-timeline {\n  padding: 15px;\n  background-color: #0f0f0f;\n  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);\n  flex: 1;\n  overflow-y: auto;\n  display: flex;\n  flex-direction: column-reverse;\n}\n\n.chatbox .chat {\n  display: flex;\n  list-style: none;\n  margin: -1px 0 0;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar {\n  width: 6px;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar-track {\n  background: #fff;\n  border-radius: 25px;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar-thumb {\n  background: #ccc;\n  border-radius: 25px;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar-thumb:hover {\n  background: #b3b3b3;\n}\n\n.chatbox-list {\n  width: 200px;\n  height: 100%;\n  overflow-y: auto;\n  -webkit-overflow-scrolling: touch;\n  background-color: #0f0f0f;\n  padding: 6px 0;\n  border-right: 1px solid #3a3635;\n}\n\n.chatbox-list-col {\n  padding: 6px 12px;\n}\n\n.chatbox-list-empty {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n.chatbox-list-empty p {\n  font-size: 14px;\n  color: #bdbdbd;\n}\n\n.chatbox-cont {\n  width: calc(100% - 200px);\n  height: 100%;\n}\n\n.chatbox-header {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px 15px;\n  background-color: #f8faff;\n  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);\n}\n\n.chatbox-header-name {\n  display: flex;\n  align-items: center;\n}\n\n.chatbox-header-name .p1 {\n  font-size: 14px;\n  font-weight: 600;\n  padding-left: 12px;\n}\n\n.chatbox-item {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n  border-radius: 12px;\n  padding: 12px;\n  background-color: transparent;\n  transition: all 0.1s;\n}\n\n.chatbox-item:hover {\n  background-color: #262525;\n}\n\n.chatbox-item.active {\n  background-color: #262525;\n}\n\n.chatbox-item .chatbox-item-cont {\n  flex: 1;\n  padding-left: 10px;\n  overflow: hidden;\n}\n\n.chatbox-item .chatbox-item-cont span {\n  font-size: 14px;\n  color: #fff;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  display: block;\n  width: 100%;\n}\n\n.chatbox-input {\n  width: 100%;\n  padding: 15px 15px 15px 5px;\n  background-color: #101010;\n  border-top: 1px solid #3a3635;\n}\n\n.chatbox-input-row {\n  display: flex;\n  align-items: center;\n}\n\n.chatbox-input-attachment {\n  display: flex;\n  overflow-x: auto;\n  padding-bottom: 15px;\n  padding-top: 8px;\n}\n\n.attachment-col {\n  margin-right: 15px;\n  position: relative;\n}\n\n.attachment-remove {\n  position: absolute;\n  top: -8px;\n  right: -8px;\n  cursor: pointer;\n}\n\n.attachment-item {\n  min-width: 50px;\n  max-width: 120px;\n  height: 50px;\n  background-color: #262525;\n  color: #fff;\n  border-radius: 8px;\n  overflow: hidden;\n}\n\n.attachment-cont {\n  display: flex;\n  padding: 10px 15px;\n}\n\n.attachment-icon {\n  width: 20px;\n}\n\n.attachment-data {\n  width: calc(100% - 20px);\n  padding-left: 5px;\n}\n\n.attachment-data .p1 {\n  font-size: 12px;\n  font-weight: 600;\n  width: 100%;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n}\n\n.attachment-data .p2 {\n  font-size: 10px;\n}\n\n.chatbox-input-textarea {\n  width: calc(100% - 84px);\n  display: flex;\n  padding: 0 10px 0 5px;\n  position: relative;\n}\n\n.chatbox-input-textarea textarea {\n  width: 100%;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  line-height: 1.5;\n  resize: none;\n  border-radius: 32px;\n  height: 36px !important;\n  background: #3a3635;\n  color: #fff;\n  padding: 7px 15px;\n}\n\n.chatbox-input-actions {\n  display: flex;\n  align-items: center;\n  width: 60px;\n}\n\n.chatbox-input-emoji {\n  position: relative;\n  padding: 5px;\n}\n\n.chatbox-input-emoji > button {\n  border: none;\n  display: flex;\n  cursor: pointer;\n  background: transparent;\n}\n\n.chatbox-picker {\n  position: absolute;\n  bottom: 30px;\n  left: 0;\n  z-index: 1;\n}\n\n.chatbox-input-upload {\n  padding: 5px;\n}\n\n.chatbox-input-upload label {\n  display: flex;\n  cursor: pointer;\n}\n\n.chatbox-input-upload input {\n  display: none;\n}\n\n.chatbox-input-send {\n  width: 24px;\n  height: 24px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  cursor: pointer;\n}\n\n.chatbox-input-send span {\n  cursor: pointer;\n  display: flex;\n}\n\n.chatbox-input-send.disabled {\n  pointer-events: none;\n  opacity: 0.5;\n}\n\n.chatbox-input textarea:valid ~ span {\n  visibility: visible;\n}\n\n.messageItem {\n  display: flex;\n  max-width: 80%;\n}\n\n.listMessages-item {\n  display: flex;\n  margin-bottom: 15px;\n}\n\n.listMessages-item.otherMessage {\n  justify-content: flex-start;\n}\n\n.listMessages-item.otherMessage .messageItem-line {\n  border-radius: 12px 12px 12px 0;\n}\n\n/* -------------------- */\n\n.listMessages-item.myMessage {\n  justify-content: flex-end;\n}\n\n.listMessages-item.myMessage .messageItem-line {\n  border-radius: 12px 12px 0 12px;\n}\n\n.messageItem-line {\n  padding: 10px;\n  font-size: 14px;\n  color: #fff;\n  display: inline-flex;\n}\n\n.msgAttachments-item {\n  margin-bottom: 15px;\n  padding: 5px;\n  border-radius: 12px;\n  background: #0f0f0f;\n}\n\n.msgAttachments-item:last-child {\n  margin-bottom: 0;\n}\n\n.msgAttachments-file {\n  display: flex;\n}\n\n.msgAttachments-file-data {\n  flex: 1;\n  padding-left: 10px;\n}\n\n@keyframes slideUp {\n  from {\n    transform: translateY(100%);\n    opacity: 0;\n  }\n  to {\n    transform: translateY(0);\n    opacity: 1;\n  }\n}\n\n.notification {\n  background-color: #f8d7da;\n  color: #721c24;\n  border: 1px solid #f5c6cb;\n  padding: 10px 15px;\n  position: absolute;\n  bottom: 15px;\n  left: 15px;\n  right: 15px;\n  z-index: 10;\n  border-radius: 4px;\n  display: flex;\n  justify-content: space-between;\n  align-items: baseline;\n  width: calc(100% - 30px);\n  animation: slideUp 0.3s ease-out;\n}\n\n.notification p {\n  margin: 0;\n  padding: 0;\n  flex: 1;\n  font-size: 14px;\n}\n\n.notification button {\n  background: none;\n  border: none;\n  color: #721c24;\n  cursor: pointer;\n  font-size: 16px;\n  margin-left: 20px;\n}\n\n.chatbox-loading {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #262525;\n  z-index: 10;\n}\n\n/* -----------------------mobile----------------------- */\n\n@media only screen and (max-width: 767px) {\n  .chatbox-wrapper {\n    width: 100%;\n    height: calc(100% - 50px);\n    position: fixed;\n    left: 0;\n    right: 0;\n    bottom: 0;\n  }\n\n  .chatbox-sidebar {\n    width: 100%;\n  }\n\n  .chatbox-list {\n    width: 100%;\n  }\n\n  .chatbox-cont {\n    width: 100%;\n  }\n\n  .chatbox-list-col {\n    border-bottom: 1px solid #3a3636;\n  }\n}\n";
 styleInject(css_248z);
 
-const BASE_URL = 'https://api-staging.ermis.network';
+const BASE_URL = 'https://api.ermis.network';
 const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, token, senderId, receiverId = '', primaryColor = '#173fcf', placement = { top: 'auto', left: 'auto', bottom: '30px', right: '30px' }, }) => {
     const chatClient = ErmisChat.getInstance(apiKey, {
         enableInsights: true,
@@ -60341,7 +60353,39 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
     const [error, setError] = React.useState(null);
     const [openSidebar, setOpenSidebar] = React.useState(true);
     const [openTimeline, setOpenTimeline] = React.useState(true);
+    const [loadingWidget, setLoadingWidget] = React.useState(true);
+    const [allUsers, setAllUsers] = React.useState([]);
     const isMobile = window.innerWidth < 768;
+    React.useEffect(() => {
+        if (openWidget) {
+            const timer = setTimeout(() => {
+                setLoadingWidget(false);
+            }, 500);
+            return () => {
+                clearTimeout(timer);
+            };
+        }
+        else {
+            setLoadingWidget(true);
+        }
+    }, [openWidget]);
+    const fetchAllUsers = (token) => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield fetch(`${BASE_URL}/uss/v1/users?limit=3000`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        const result = yield response.json();
+        if (response.ok) {
+            setAllUsers(result.results);
+        }
+        else {
+            setAllUsers([]);
+            setError(result.message || ERROR_MESSAGE);
+        }
+    });
     React.useEffect(() => {
         if (lowCaseSenderId && token) {
             const connectUser = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -60359,6 +60403,7 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
                 }
             });
             connectUser();
+            fetchAllUsers(token);
         }
         else {
             setIsLoggedIn(false);
@@ -60368,6 +60413,7 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
         onToggleWidget();
     };
     const fetchChannels = () => __awaiter(void 0, void 0, void 0, function* () {
+        // call when listen event added_to_channel
         yield chatClient
             .queryChannels(paramsQueryChannels.filter, paramsQueryChannels.sort, paramsQueryChannels.options)
             .then((response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -60389,7 +60435,6 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
             }
             catch (err) {
                 setError(err.message || ERROR_MESSAGE);
-                return null;
             }
         }
     });
@@ -60447,7 +60492,6 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
         }));
     }, []);
     React.useEffect(() => {
-        console.log('isMobile', isMobile);
         if (isMobile) {
             if (channelCurrent) {
                 setOpenSidebar(false);
@@ -60479,13 +60523,15 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
                     } },
                     React.createElement(IconCarretLeft, { width: 24, height: 24, color: "#fff" }))),
                 isMobile ? (React.createElement("h2", null, channelCurrent && openTimeline
-                    ? getChannelName(channelCurrent, lowCaseSenderId)
+                    ? getChannelName(channelCurrent, lowCaseSenderId, allUsers)
                     : 'ErmisChat')) : (React.createElement("h2", null, "ErmisChat")),
                 React.createElement("span", { className: "close-btn material-symbols-outlined", onClick: toggleChatbox },
                     React.createElement(IconClose, { width: 24, height: 24, color: "#fff" }))),
             React.createElement("main", null,
+                loadingWidget && (React.createElement("div", { className: "chatbox-loading" },
+                    React.createElement(LoadingSpinner, { primaryColor: primaryColor }))),
                 openSidebar && (React.createElement("div", { className: "chatbox-sidebar" },
-                    React.createElement(ChannelList, { chatClient: chatClient, senderId: lowCaseSenderId, channels: channels, channelCurrent: channelCurrent, setChannelCurrent: setChannelCurrent, setError: setError }))),
+                    React.createElement(ChannelList, { chatClient: chatClient, senderId: lowCaseSenderId, channels: channels, channelCurrent: channelCurrent, setChannelCurrent: setChannelCurrent, setError: setError, allUsers: allUsers }))),
                 openTimeline && (React.createElement("div", { className: "chatbox-cont" }, channelCurrent ? (React.createElement(React.Fragment, null,
                     React.createElement("div", { className: "chatbox-body" },
                         React.createElement(ChatTimeline, { senderId: lowCaseSenderId, channelCurrent: channelCurrent, primaryColor: primaryColor, setError: setError }),
