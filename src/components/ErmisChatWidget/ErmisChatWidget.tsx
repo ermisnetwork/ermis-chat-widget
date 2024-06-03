@@ -57,6 +57,10 @@ const ErmisChatWidget = ({
   const [openTimeline, setOpenTimeline] = useState<boolean>(true);
   const [loadingWidget, setLoadingWidget] = useState<boolean>(true);
   const [allUsers, setAllUsers] = useState<any>([]);
+  const [allUnreadCount, setAllUnreadCount] = useState<any>({
+    total_unread_count: 0,
+    channels: [],
+  });
 
   const isMobile = window.innerWidth < 768;
 
@@ -73,23 +77,6 @@ const ErmisChatWidget = ({
       setLoadingWidget(true);
     }
   }, [openWidget]);
-
-  const fetchAllUsers = async (token: string) => {
-    const response = await fetch(`${BASE_URL}/uss/v1/users?limit=3000`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const result = await response.json();
-    if (response.ok) {
-      setAllUsers(result.results);
-    } else {
-      setAllUsers([]);
-      setError(result.message || ERROR_MESSAGE);
-    }
-  };
 
   useEffect(() => {
     if (lowCaseSenderId && token) {
@@ -110,11 +97,109 @@ const ErmisChatWidget = ({
         }
       };
       connectUser();
-      fetchAllUsers(token);
     } else {
       setIsLoggedIn(false);
     }
   }, [lowCaseSenderId, token]);
+
+  useEffect(() => {
+    if (isLoggedIn && token) {
+      fetchAllUsers(token);
+      fetchAllUnreadCount(lowCaseSenderId);
+    }
+  }, [isLoggedIn, token]);
+
+  useEffect(() => {
+    const handleChannels = () => {
+      fetchChannels();
+    };
+
+    const handleUnreadCount = (event: any) => {
+      if (
+        !openWidget &&
+        event.channel_type === ChatType.Messaging &&
+        event.user.id !== lowCaseSenderId
+      ) {
+        fetchAllUnreadCount(lowCaseSenderId);
+      }
+    };
+
+    chatClient.on('notification.added_to_channel', handleChannels);
+    chatClient.on('message.new', handleUnreadCount);
+
+    return () => {
+      chatClient.off('notification.added_to_channel', handleChannels);
+      chatClient.off('message.new', handleUnreadCount);
+    };
+  }, [openWidget]);
+
+  useEffect(() => {
+    if (isMobile) {
+      if (channelCurrent) {
+        setOpenSidebar(false);
+        setOpenTimeline(true);
+      } else {
+        setOpenSidebar(true);
+        setOpenTimeline(false);
+      }
+    }
+  }, [isMobile, channelCurrent]);
+
+  const getData = useCallback(async () => {
+    if (isLoggedIn && openWidget) {
+      // get list channel
+      await chatClient
+        .queryChannels(
+          paramsQueryChannels.filter,
+          paramsQueryChannels.sort,
+          paramsQueryChannels.options
+        )
+        .then(async (response: any) => {
+          setChannels(response);
+          if (lowCaseReceiverId) {
+            const channelOfReceiver = response.find((channel: any) =>
+              Object.values(channel.data.members).some(
+                (member: any) => member.user_id === lowCaseReceiverId
+              )
+            );
+            if (channelOfReceiver) {
+              console.log('----------connect existing channel----------');
+              connectChannelOfReceiver(channelOfReceiver);
+            } else {
+              console.log('----------create new channel----------');
+              createChannelOfReceiver();
+            }
+          }
+        })
+        .catch((err: any) => {
+          setError(err.message || ERROR_MESSAGE);
+        });
+    } else {
+      setChannelCurrent(null);
+      setChannels([]);
+    }
+  }, [lowCaseReceiverId, isLoggedIn, openWidget]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  const fetchAllUsers = async (token: string) => {
+    const response = await fetch(`${BASE_URL}/uss/v1/users?limit=3000`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
+    if (response.ok) {
+      setAllUsers(result.results);
+    } else {
+      setAllUsers([]);
+      setError(result.message || ERROR_MESSAGE);
+    }
+  };
 
   const toggleChatbox = () => {
     onToggleWidget();
@@ -169,62 +254,22 @@ const ErmisChatWidget = ({
     }
   };
 
-  const getData = useCallback(async () => {
-    if (isLoggedIn && openWidget) {
-      // get list channel
-      await chatClient
-        .queryChannels(
-          paramsQueryChannels.filter,
-          paramsQueryChannels.sort,
-          paramsQueryChannels.options
-        )
-        .then(async (response: any) => {
-          setChannels(response);
-          if (lowCaseReceiverId) {
-            const channelOfReceiver = response.find((channel: any) =>
-              Object.values(channel.data.members).some(
-                (member: any) => member.user_id === lowCaseReceiverId
-              )
-            );
-            if (channelOfReceiver) {
-              console.log('----------connect existing channel----------');
-              connectChannelOfReceiver(channelOfReceiver);
-            } else {
-              console.log('----------create new channel----------');
-              createChannelOfReceiver();
-            }
-          }
-        })
-        .catch((err: any) => {
-          setError(err.message || ERROR_MESSAGE);
-        });
-    } else {
-      setChannelCurrent(null);
-      setChannels([]);
-    }
-  }, [lowCaseReceiverId, isLoggedIn, openWidget]);
-
-  useEffect(() => {
-    getData();
-  }, [getData]);
-
-  useEffect(() => {
-    chatClient.on('notification.added_to_channel', async event => {
-      fetchChannels();
-    });
-  }, []);
-
-  useEffect(() => {
-    if (isMobile) {
-      if (channelCurrent) {
-        setOpenSidebar(false);
-        setOpenTimeline(true);
-      } else {
-        setOpenSidebar(true);
-        setOpenTimeline(false);
-      }
-    }
-  }, [isMobile, channelCurrent]);
+  const fetchAllUnreadCount = async (lowCaseSenderId: string) => {
+    await chatClient
+      .getUnreadCount(lowCaseSenderId)
+      .then(response => {
+        const channelMessaging = response.channel_type.find(
+          item => item.channel_type === ChatType.Messaging
+        );
+        const total_unread_count = channelMessaging
+          ? channelMessaging.unread_count
+          : 0;
+        setAllUnreadCount({ total_unread_count, channels: response.channels });
+      })
+      .catch((err: any) => {
+        setError(err.message || ERROR_MESSAGE);
+      });
+  };
 
   return (
     <div
@@ -236,6 +281,14 @@ const ErmisChatWidget = ({
         bottom: placement.bottom,
       }}
     >
+      <div
+        className={`chatbox-total-count ${
+          allUnreadCount.total_unread_count !== 0 ? 'show' : ''
+        }`}
+      >
+        {allUnreadCount.total_unread_count}
+      </div>
+
       <button
         className="chatbox-toggler"
         onClick={toggleChatbox}
@@ -300,6 +353,8 @@ const ErmisChatWidget = ({
                 setChannelCurrent={setChannelCurrent}
                 setError={setError}
                 allUsers={allUsers}
+                allUnreadCount={allUnreadCount}
+                fetchAllUnreadCount={fetchAllUnreadCount}
               />
             </div>
           )}

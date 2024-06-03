@@ -1,7 +1,7 @@
 import React from 'react';
 export interface IProps {
     chatClient: any;
-    channels: any[];
+    channel: any;
     senderId: string;
     channelCurrent: any;
     setChannelCurrent: (channel: any) => void;
@@ -10,5 +10,5 @@ export interface IProps {
     allUnreadCount: any;
     fetchAllUnreadCount: (senderId: string) => void;
 }
-declare const ChannelList: ({ chatClient, channels, senderId, channelCurrent, setChannelCurrent, setError, allUsers, allUnreadCount, fetchAllUnreadCount, }: IProps) => React.JSX.Element;
-export default ChannelList;
+declare const ChannelItem: ({ chatClient, channel, senderId, channelCurrent, setChannelCurrent, setError, allUsers, allUnreadCount, fetchAllUnreadCount, }: IProps) => React.JSX.Element;
+export default ChannelItem;

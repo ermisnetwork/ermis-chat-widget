@@ -31,12 +31,16 @@ const ChatTimeline = ({
       const messages = channelCurrent.state.messages;
       setMessages(messages);
 
-      channelCurrent?.on('message.new', (event: any) => {
+      const handleMessages = (event: any) => {
         setMessages(channelCurrent.state.messages);
         if (chatboxRef.current && chatboxRef.current.scrollHeight) {
           chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
         }
-      });
+      };
+      channelCurrent.on('message.new', handleMessages);
+      return () => {
+        channelCurrent.off('message.new', handleMessages);
+      };
     }
   }, [channelCurrent, chatboxRef]);
 

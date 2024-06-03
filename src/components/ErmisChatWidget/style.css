@@ -120,6 +120,34 @@
   opacity: 1;
 }
 
+.chatbox-total-count {
+  position: absolute;
+  top: -17px;
+  right: -8px;
+  z-index: 5;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  scale: 0.5;
+  transition: all 0.2s ease-in-out;
+  font-size: 0px;
+  background-color: transparent;
+  border-radius: 50%;
+  color: #fff;
+}
+
+.chatbox-total-count.show {
+  background-color: red;
+  opacity: 1;
+  visibility: visible;
+  scale: 1;
+  font-size: 14px;
+}
+
 .chatbox-container {
   position: fixed;
   z-index: 10;
@@ -291,6 +319,7 @@
   padding: 12px;
   background-color: transparent;
   transition: all 0.1s;
+  position: relative;
 }
 
 .chatbox-item:hover {
@@ -305,16 +334,29 @@
   flex: 1;
   padding-left: 10px;
   overflow: hidden;
+  display: flex;
 }
 
-.chatbox-item .chatbox-item-cont span {
+.chatbox-item-name {
   font-size: 14px;
   color: #fff;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   display: block;
-  width: 100%;
+  flex: 1;
+}
+
+.chatbox-item-count {
+  background-color: red;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
 }
 
 .chatbox-input {
