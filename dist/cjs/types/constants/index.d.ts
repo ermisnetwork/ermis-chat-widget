@@ -18,3 +18,4 @@ export declare enum ChatType {
 }
 export declare const ERROR_MESSAGE = "Something went wrong";
 export declare const paramsQueryChannels: any;
+export declare const DELAY_TIME_UNREAD_COUNT = 1000;

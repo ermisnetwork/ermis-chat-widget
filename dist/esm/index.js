@@ -16453,6 +16453,7 @@ const paramsQueryChannels = {
         watch: true,
     },
 };
+const DELAY_TIME_UNREAD_COUNT = 1000;
 
 const getChannelName = (channel, userId, allUsers) => {
     if (!channel)
@@ -16687,6 +16688,7 @@ const ChannelAvatar = ({ senderId, channel, width, height, allUsers, }) => {
 
 const ChannelItem = ({ chatClient, channel, senderId, channelCurrent, setChannelCurrent, setError, allUsers, allUnreadCount, fetchAllUnreadCount, }) => {
     const [count, setCount] = useState(0);
+    const [timer, setTimer] = useState(null);
     useEffect(() => {
         // get unread count
         const listChannel = (allUnreadCount === null || allUnreadCount === void 0 ? void 0 : allUnreadCount.channels) || [];
@@ -16695,21 +16697,32 @@ const ChannelItem = ({ chatClient, channel, senderId, channelCurrent, setChannel
     }, [channel, allUnreadCount]);
     useEffect(() => {
         if (channel) {
+            if (channelCurrent && channelCurrent.id === channel.data.id) {
+                setCount(0);
+            }
+            const markRead = () => {
+                onMarkReadChannel(channel);
+                setCount(0);
+                setTimer(null);
+            };
             const handleWatchChannel = (event) => {
-                if (event.channel_id === (channel === null || channel === void 0 ? void 0 : channel.data.id) &&
+                if (event.channel_id === channel.data.id &&
                     event.channel_type === ChatType.Messaging) {
-                    // setCount(event.unread_count);
+                    setCount(event.unread_count);
                     if (event.user.id !== senderId) {
-                        if (channelCurrent && channelCurrent.data.id === event.channel_id) {
-                            setTimeout(function () {
-                                onMarkReadChannel(channel);
-                                setCount(0);
-                            }, 300);
+                        if (channelCurrent && channelCurrent.id === event.channel_id) {
+                            if (timer) {
+                                clearTimeout(timer);
+                            }
+                            setTimer(setTimeout(markRead, DELAY_TIME_UNREAD_COUNT));
                         }
                         else {
-                            setTimeout(function () {
+                            if (timer) {
+                                clearTimeout(timer);
+                            }
+                            setTimer(setTimeout(function () {
                                 fetchAllUnreadCount(senderId);
-                            }, 300);
+                            }, DELAY_TIME_UNREAD_COUNT));
                         }
                     }
                 }
@@ -16717,9 +16730,12 @@ const ChannelItem = ({ chatClient, channel, senderId, channelCurrent, setChannel
             channel.on('message.new', handleWatchChannel);
             return () => {
                 channel.off('message.new', handleWatchChannel);
+                if (timer) {
+                    clearTimeout(timer);
+                }
             };
         }
-    }, [channel, senderId, channelCurrent]);
+    }, [channel, senderId, channelCurrent, timer]);
     const onMarkReadChannel = (channel) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const response = yield channel.markRead();
@@ -16743,7 +16759,7 @@ const ChannelItem = ({ chatClient, channel, senderId, channelCurrent, setChannel
                 setChannelCurrent(channelSelected);
                 setTimeout(function () {
                     fetchAllUnreadCount(senderId);
-                }, 300);
+                }, DELAY_TIME_UNREAD_COUNT);
             }
         }
         catch (err) {
@@ -60392,7 +60408,8 @@ function styleInject(css, ref) {
 var css_248z = "@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;1,700&display=swap');\n\n/* Import Material Symbols Outlined font */\n/* @import url(\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200\"); */\n\n/* Import Material Symbols Rounded font */\n/* @import url(\"https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0\"); */\n\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  font-family: 'Poppins', sans-serif;\n}\n\n@keyframes color {\n  0% {\n    background-position: 0 50%;\n  }\n\n  50% {\n    background-position: 100% 50%;\n  }\n\n  100% {\n    background-position: 0 50%;\n  }\n}\n\n.chatbox-spinner {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0 15px;\n}\n\n.lds-ring,\n.lds-ring div {\n  box-sizing: border-box;\n}\n.lds-ring {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: relative;\n  width: 20px;\n  height: 20px;\n}\n.lds-ring div {\n  box-sizing: border-box;\n  display: block;\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  border: 2px solid currentColor;\n  border-radius: 50%;\n  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;\n  border-color: currentColor transparent transparent transparent;\n}\n.lds-ring div:nth-child(1) {\n  animation-delay: -0.45s;\n}\n.lds-ring div:nth-child(2) {\n  animation-delay: -0.3s;\n}\n.lds-ring div:nth-child(3) {\n  animation-delay: -0.15s;\n}\n@keyframes lds-ring {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n\n.chatbox-toggler {\n  outline: none;\n  border: none;\n  height: 40px;\n  width: 40px;\n  display: flex;\n  cursor: pointer;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  background: #4aa017;\n  transition: all 0.2s ease;\n  box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),\n    0 32px 64px -48px rgba(0, 0, 0, 0.5);\n\n  &:hover {\n    background: #4aa017;\n  }\n\n  svg path {\n    fill: #fff;\n  }\n}\n\n.chatbox-container.show-chatbox .chatbox-toggler {\n  transform: rotate(90deg);\n  background: #4aa017;\n}\n\n.chatbox-toggler span {\n  color: #fff;\n  position: absolute;\n  display: flex;\n  transition: all 0.2s ease;\n}\n\n.chatbox-toggler span:last-child,\n.chatbox-container.show-chatbox .chatbox-toggler span:first-child {\n  opacity: 0;\n}\n\n.chatbox-container.show-chatbox .chatbox-toggler span:last-child {\n  opacity: 1;\n}\n\n.chatbox-total-count {\n  position: absolute;\n  top: -17px;\n  right: -8px;\n  z-index: 5;\n  width: 25px;\n  height: 25px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  opacity: 0;\n  visibility: hidden;\n  scale: 0.5;\n  transition: all 0.2s ease-in-out;\n  font-size: 0px;\n  background-color: transparent;\n  border-radius: 50%;\n  color: #fff;\n}\n\n.chatbox-total-count.show {\n  background-color: red;\n  opacity: 1;\n  visibility: visible;\n  scale: 1;\n  font-size: 14px;\n}\n\n.chatbox-container {\n  position: fixed;\n  z-index: 10;\n}\n\n.chatbox-wrapper {\n  position: absolute;\n  right: 40px;\n  bottom: 30px;\n  z-index: 10;\n  overflow: hidden;\n  width: 600px;\n  height: 520px;\n  transform: scale(0.5);\n  opacity: 0;\n  visibility: hidden;\n  pointer-events: none;\n  background: #0f0f0f;\n  transform-origin: bottom right;\n  border-radius: 8px 8px 0 0;\n  transition: all 0.1s ease;\n}\n\n.chatbox-container.show-chatbox .chatbox-wrapper {\n  opacity: 1;\n  visibility: visible;\n  pointer-events: auto;\n  transform: scale(1);\n}\n\n.chatbox-wrapper header {\n  background: #4aa017;\n  position: relative;\n  color: #fff;\n  padding: 12px;\n  border-radius: 8px 8px 0 0;\n  display: flex;\n  align-items: center;\n}\n\n.chatbox-wrapper header h2 {\n  color: #fff;\n  font-size: 16px;\n  font-weight: 600;\n  letter-spacing: 0.5px;\n  flex: 1;\n}\n\n.chatbox-wrapper header > span {\n  display: flex;\n}\n\n.chatbox-wrapper header .back-btn {\n  padding-right: 10px;\n}\n\n.chatbox-wrapper header .close-btn {\n  cursor: pointer;\n}\n\n.chatbox-body {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n}\n\n.chatbox-wrapper main {\n  height: calc(100% - 49px);\n  display: flex;\n}\n\n.chatbox-cont {\n  width: calc(100% - 200px);\n}\n\n.chatbox-timeline {\n  padding: 15px;\n  background-color: #0f0f0f;\n  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);\n  flex: 1;\n  overflow-y: auto;\n  display: flex;\n  flex-direction: column-reverse;\n}\n\n.chatbox .chat {\n  display: flex;\n  list-style: none;\n  margin: -1px 0 0;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar {\n  width: 6px;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar-track {\n  background: #fff;\n  border-radius: 25px;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar-thumb {\n  background: #ccc;\n  border-radius: 25px;\n}\n\n.chatbox :where(.chatbox, textarea)::-webkit-scrollbar-thumb:hover {\n  background: #b3b3b3;\n}\n\n.chatbox-list {\n  width: 200px;\n  height: 100%;\n  overflow-y: auto;\n  -webkit-overflow-scrolling: touch;\n  background-color: #0f0f0f;\n  padding: 6px 0;\n  border-right: 1px solid #3a3635;\n}\n\n.chatbox-list-col {\n  padding: 6px 12px;\n}\n\n.chatbox-list-empty {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n.chatbox-list-empty p {\n  font-size: 14px;\n  color: #bdbdbd;\n}\n\n.chatbox-cont {\n  width: calc(100% - 200px);\n  height: 100%;\n}\n\n.chatbox-header {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 10px 15px;\n  background-color: #f8faff;\n  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);\n}\n\n.chatbox-header-name {\n  display: flex;\n  align-items: center;\n}\n\n.chatbox-header-name .p1 {\n  font-size: 14px;\n  font-weight: 600;\n  padding-left: 12px;\n}\n\n.chatbox-item {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n  border-radius: 12px;\n  padding: 12px;\n  background-color: transparent;\n  transition: all 0.1s;\n  position: relative;\n}\n\n.chatbox-item:hover {\n  background-color: #262525;\n}\n\n.chatbox-item.active {\n  background-color: #262525;\n}\n\n.chatbox-item .chatbox-item-cont {\n  flex: 1;\n  padding-left: 10px;\n  overflow: hidden;\n  display: flex;\n}\n\n.chatbox-item-name {\n  font-size: 14px;\n  color: #fff;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  display: block;\n  flex: 1;\n}\n\n.chatbox-item-count {\n  background-color: red;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  color: #fff;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  font-size: 12px;\n}\n\n.chatbox-input {\n  width: 100%;\n  padding: 15px 15px 15px 5px;\n  background-color: #101010;\n  border-top: 1px solid #3a3635;\n}\n\n.chatbox-input-row {\n  display: flex;\n  align-items: center;\n}\n\n.chatbox-input-attachment {\n  display: flex;\n  overflow-x: auto;\n  padding-bottom: 15px;\n  padding-top: 8px;\n}\n\n.attachment-col {\n  margin-right: 15px;\n  position: relative;\n}\n\n.attachment-remove {\n  position: absolute;\n  top: -8px;\n  right: -8px;\n  cursor: pointer;\n}\n\n.attachment-item {\n  min-width: 50px;\n  max-width: 120px;\n  height: 50px;\n  background-color: #262525;\n  color: #fff;\n  border-radius: 8px;\n  overflow: hidden;\n}\n\n.attachment-cont {\n  display: flex;\n  padding: 10px 15px;\n}\n\n.attachment-icon {\n  width: 20px;\n}\n\n.attachment-data {\n  width: calc(100% - 20px);\n  padding-left: 5px;\n}\n\n.attachment-data .p1 {\n  font-size: 12px;\n  font-weight: 600;\n  width: 100%;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n}\n\n.attachment-data .p2 {\n  font-size: 10px;\n}\n\n.chatbox-input-textarea {\n  width: calc(100% - 84px);\n  display: flex;\n  padding: 0 10px 0 5px;\n  position: relative;\n}\n\n.chatbox-input-textarea textarea {\n  width: 100%;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  line-height: 1.5;\n  resize: none;\n  border-radius: 32px;\n  height: 36px !important;\n  background: #3a3635;\n  color: #fff;\n  padding: 7px 15px;\n}\n\n.chatbox-input-actions {\n  display: flex;\n  align-items: center;\n  width: 60px;\n}\n\n.chatbox-input-emoji {\n  position: relative;\n  padding: 5px;\n}\n\n.chatbox-input-emoji > button {\n  border: none;\n  display: flex;\n  cursor: pointer;\n  background: transparent;\n}\n\n.chatbox-picker {\n  position: absolute;\n  bottom: 30px;\n  left: 0;\n  z-index: 1;\n}\n\n.chatbox-input-upload {\n  padding: 5px;\n}\n\n.chatbox-input-upload label {\n  display: flex;\n  cursor: pointer;\n}\n\n.chatbox-input-upload input {\n  display: none;\n}\n\n.chatbox-input-send {\n  width: 24px;\n  height: 24px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  cursor: pointer;\n}\n\n.chatbox-input-send span {\n  cursor: pointer;\n  display: flex;\n}\n\n.chatbox-input-send.disabled {\n  pointer-events: none;\n  opacity: 0.5;\n}\n\n.chatbox-input textarea:valid ~ span {\n  visibility: visible;\n}\n\n.messageItem {\n  display: flex;\n  max-width: 80%;\n}\n\n.listMessages-item {\n  display: flex;\n  margin-bottom: 15px;\n}\n\n.listMessages-item.otherMessage {\n  justify-content: flex-start;\n}\n\n.listMessages-item.otherMessage .messageItem-line {\n  border-radius: 12px 12px 12px 0;\n}\n\n/* -------------------- */\n\n.listMessages-item.myMessage {\n  justify-content: flex-end;\n}\n\n.listMessages-item.myMessage .messageItem-line {\n  border-radius: 12px 12px 0 12px;\n}\n\n.messageItem-line {\n  padding: 10px;\n  font-size: 14px;\n  color: #fff;\n  display: inline-flex;\n}\n\n.msgAttachments-item {\n  margin-bottom: 15px;\n  padding: 5px;\n  border-radius: 12px;\n  background: #0f0f0f;\n}\n\n.msgAttachments-item:last-child {\n  margin-bottom: 0;\n}\n\n.msgAttachments-file {\n  display: flex;\n}\n\n.msgAttachments-file-data {\n  flex: 1;\n  padding-left: 10px;\n}\n\n@keyframes slideUp {\n  from {\n    transform: translateY(100%);\n    opacity: 0;\n  }\n  to {\n    transform: translateY(0);\n    opacity: 1;\n  }\n}\n\n.notification {\n  background-color: #f8d7da;\n  color: #721c24;\n  border: 1px solid #f5c6cb;\n  padding: 10px 15px;\n  position: absolute;\n  bottom: 15px;\n  left: 15px;\n  right: 15px;\n  z-index: 10;\n  border-radius: 4px;\n  display: flex;\n  justify-content: space-between;\n  align-items: baseline;\n  width: calc(100% - 30px);\n  animation: slideUp 0.3s ease-out;\n}\n\n.notification p {\n  margin: 0;\n  padding: 0;\n  flex: 1;\n  font-size: 14px;\n}\n\n.notification button {\n  background: none;\n  border: none;\n  color: #721c24;\n  cursor: pointer;\n  font-size: 16px;\n  margin-left: 20px;\n}\n\n.chatbox-loading {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #262525;\n  z-index: 10;\n}\n\n/* -----------------------mobile----------------------- */\n\n@media only screen and (max-width: 767px) {\n  .chatbox-wrapper {\n    width: 100%;\n    height: calc(100% - 50px);\n    position: fixed;\n    left: 0;\n    right: 0;\n    bottom: 0;\n  }\n\n  .chatbox-sidebar {\n    width: 100%;\n  }\n\n  .chatbox-list {\n    width: 100%;\n  }\n\n  .chatbox-cont {\n    width: 100%;\n  }\n\n  .chatbox-list-col {\n    border-bottom: 1px solid #3a3636;\n  }\n}\n";
 styleInject(css_248z);
 
-const BASE_URL = 'https://api.ermis.network';
+const BASE_URL = 'https://api.ermis.network'; // product
+// const BASE_URL = 'https://api-staging.ermis.network'; // staging
 const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, token, senderId, receiverId = '', primaryColor = '#173fcf', placement = { top: 'auto', left: 'auto', bottom: '30px', right: '30px' }, }) => {
     const chatClient = ErmisChat.getInstance(apiKey, {
         enableInsights: true,
@@ -60414,6 +60431,7 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
         total_unread_count: 0,
         channels: [],
     });
+    const [timer, setTimer] = useState(null);
     const isMobile = window.innerWidth < 768;
     useEffect(() => {
         if (openWidget) {
@@ -60464,7 +60482,12 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
             if (!openWidget &&
                 event.channel_type === ChatType.Messaging &&
                 event.user.id !== lowCaseSenderId) {
-                fetchAllUnreadCount(lowCaseSenderId);
+                if (timer) {
+                    clearTimeout(timer);
+                }
+                setTimer(setTimeout(() => {
+                    fetchAllUnreadCount(lowCaseSenderId);
+                }, DELAY_TIME_UNREAD_COUNT));
             }
         };
         chatClient.on('notification.added_to_channel', handleChannels);
@@ -60472,8 +60495,11 @@ const ErmisChatWidget = ({ apiKey = '', openWidget = false, onToggleWidget, toke
         return () => {
             chatClient.off('notification.added_to_channel', handleChannels);
             chatClient.off('message.new', handleUnreadCount);
+            if (timer) {
+                clearTimeout(timer);
+            }
         };
-    }, [openWidget]);
+    }, [openWidget, timer]);
     useEffect(() => {
         if (isMobile) {
             if (channelCurrent) {

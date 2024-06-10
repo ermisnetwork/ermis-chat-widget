@@ -4,6 +4,7 @@ import { getChannelName } from '../../utils';
 import {
   ChatIcon,
   ChatType,
+  DELAY_TIME_UNREAD_COUNT,
   ERROR_MESSAGE,
   IconCarretLeft,
   IconClose,
@@ -28,7 +29,8 @@ interface ChatWidgetIProps {
   placement?: any;
 }
 
-const BASE_URL = 'https://api.ermis.network';
+const BASE_URL = 'https://api.ermis.network'; // product
+// const BASE_URL = 'https://api-staging.ermis.network'; // staging
 
 const ErmisChatWidget = ({
   apiKey = '',
@@ -61,6 +63,7 @@ const ErmisChatWidget = ({
     total_unread_count: 0,
     channels: [],
   });
+  const [timer, setTimer] = useState<any>(null);
 
   const isMobile = window.innerWidth < 768;
 
@@ -120,7 +123,14 @@ const ErmisChatWidget = ({
         event.channel_type === ChatType.Messaging &&
         event.user.id !== lowCaseSenderId
       ) {
-        fetchAllUnreadCount(lowCaseSenderId);
+        if (timer) {
+          clearTimeout(timer);
+        }
+        setTimer(
+          setTimeout(() => {
+            fetchAllUnreadCount(lowCaseSenderId);
+          }, DELAY_TIME_UNREAD_COUNT)
+        );
       }
     };
 
@@ -130,8 +140,11 @@ const ErmisChatWidget = ({
     return () => {
       chatClient.off('notification.added_to_channel', handleChannels);
       chatClient.off('message.new', handleUnreadCount);
+      if (timer) {
+        clearTimeout(timer);
+      }
     };
-  }, [openWidget]);
+  }, [openWidget, timer]);
 
   useEffect(() => {
     if (isMobile) {

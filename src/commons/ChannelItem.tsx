@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getChannelName } from '../utils';
 import ChannelAvatar from './ChannelAvatar';
-import { ChatType, ERROR_MESSAGE } from '../constants';
+import { ChatType, DELAY_TIME_UNREAD_COUNT, ERROR_MESSAGE } from '../constants';
 
 export interface IProps {
   chatClient: any;
@@ -27,6 +27,7 @@ const ChannelItem = ({
   fetchAllUnreadCount,
 }: IProps) => {
   const [count, setCount] = useState<number>(0);
+  const [timer, setTimer] = useState<any>(null);
 
   useEffect(() => {
     // get unread count
@@ -39,23 +40,37 @@ const ChannelItem = ({
 
   useEffect(() => {
     if (channel) {
+      if (channelCurrent && channelCurrent.id === channel.data.id) {
+        setCount(0);
+      }
+
+      const markRead = () => {
+        onMarkReadChannel(channel);
+        setCount(0);
+        setTimer(null);
+      };
+
       const handleWatchChannel = (event: any) => {
         if (
-          event.channel_id === channel?.data.id &&
+          event.channel_id === channel.data.id &&
           event.channel_type === ChatType.Messaging
         ) {
-          // setCount(event.unread_count);
-
+          setCount(event.unread_count);
           if (event.user.id !== senderId) {
-            if (channelCurrent && channelCurrent.data.id === event.channel_id) {
-              setTimeout(function () {
-                onMarkReadChannel(channel);
-                setCount(0);
-              }, 300);
+            if (channelCurrent && channelCurrent.id === event.channel_id) {
+              if (timer) {
+                clearTimeout(timer);
+              }
+              setTimer(setTimeout(markRead, DELAY_TIME_UNREAD_COUNT));
             } else {
-              setTimeout(function () {
-                fetchAllUnreadCount(senderId);
-              }, 300);
+              if (timer) {
+                clearTimeout(timer);
+              }
+              setTimer(
+                setTimeout(function () {
+                  fetchAllUnreadCount(senderId);
+                }, DELAY_TIME_UNREAD_COUNT)
+              );
             }
           }
         }
@@ -65,9 +80,12 @@ const ChannelItem = ({
 
       return () => {
         channel.off('message.new', handleWatchChannel);
+        if (timer) {
+          clearTimeout(timer);
+        }
       };
     }
-  }, [channel, senderId, channelCurrent]);
+  }, [channel, senderId, channelCurrent, timer]);
 
   const onMarkReadChannel = async (channel: any) => {
     try {
@@ -94,7 +112,7 @@ const ChannelItem = ({
 
         setTimeout(function () {
           fetchAllUnreadCount(senderId);
-        }, 300);
+        }, DELAY_TIME_UNREAD_COUNT);
       }
     } catch (err: any) {
       setError(err.message || ERROR_MESSAGE);

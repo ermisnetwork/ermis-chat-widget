@@ -536,3 +536,5 @@ export const paramsQueryChannels: any = {
     watch: true,
   },
 };
+
+export const DELAY_TIME_UNREAD_COUNT = 1000;
